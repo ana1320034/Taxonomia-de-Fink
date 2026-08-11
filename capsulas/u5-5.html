@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>¿Esta devolución sirve?</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>¿Esta devolución sirve?</h1><p class="entrada">Ocho devoluciones reales de docentes. Identifique qué condición falla en cada una. La prueba de verdad es siempre la misma: ¿qué puede hacer el estudiante con ella?</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cem>«Buen trabajo. 4,3.» Entregado dos días después, junto con otras cuatro devoluciones a lo largo del curso.\u003c/em>","pregunta":"¿Qué condición falla aquí?","opciones":[{"t":"Frecuente: llega muchas veces, no una sola.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Inmediata: llega cerca de la entrega.","tipo":"mal","porque":"Dos días es rápido. El problema no es cuándo llega."},{"t":"Discriminante: dice con precisión qué está logrado y qué no.","tipo":"bien","porque":"Sí. Llega rápido, llega varias veces y no ataca a nadie. Lo que no hace es decir \u003cem>qué\u003c/em> estuvo bien — y sin eso, el estudiante no puede repetirlo a propósito."},{"t":"Empática: juzga el trabajo, no a la persona.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Ninguna falla: esta devolución sirve.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."}]},{"enunciado":"\u003cem>«El análisis conecta bien los dos factores, pero no dice cuál pesa más; en la próxima entrega empiece por ahí.» Llega tres semanas después de entregar, con la nota final del curso.\u003c/em>","pregunta":"¿Qué condición falla aquí?","opciones":[{"t":"Frecuente: llega muchas veces, no una sola.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Inmediata: llega cerca de la entrega.","tipo":"bien","porque":"Sí. Es precisa, es respetuosa y hasta dice qué hacer después — pero llega con la nota final. No hay próxima entrega. Toda su utilidad se evaporó por el momento en que llegó."},{"t":"Discriminante: dice con precisión qué está logrado y qué no.","tipo":"mal","porque":"Es todo lo discriminante que hace falta: nombra el logro, la falta y el siguiente paso."},{"t":"Empática: juzga el trabajo, no a la persona.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Ninguna falla: esta devolución sirve.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."}]},{"enunciado":"\u003cem>«Se nota que no le dedicó tiempo a esto. Usted puede más.» Entregada al día siguiente.\u003c/em>","pregunta":"¿Qué condición falla aquí?","opciones":[{"t":"Frecuente: llega muchas veces, no una sola.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Inmediata: llega cerca de la entrega.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Discriminante: dice con precisión qué está logrado y qué no.","tipo":"abierto","porque":"Tampoco es precisa —no dice qué falló—, pero el problema principal es de quién habla."},{"t":"Empática: juzga el trabajo, no a la persona.","tipo":"bien","porque":"Sí. Juzga a la persona y sus intenciones, no el trabajo. Y aunque la última frase suene alentadora, deja al estudiante sin nada concreto que corregir. \u003cstrong>Salida:\u003c/strong> decir qué le falta al trabajo, no qué le sobra o le falta al estudiante."},{"t":"Ninguna falla: esta devolución sirve.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."}]},{"enunciado":"\u003cem>Rúbrica marcada con el nivel alcanzado en cada uno de los cuatro criterios, más una frase personal, devuelta a los cuatro días. Es la tercera de cinco devoluciones del semestre.\u003c/em>","pregunta":"¿Qué condición falla aquí?","opciones":[{"t":"Frecuente: llega muchas veces, no una sola.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Inmediata: llega cerca de la entrega.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Discriminante: dice con precisión qué está logrado y qué no.","tipo":"mal","porque":"La rúbrica marcada es lo que la hace discriminante: el estudiante ve exactamente en qué nivel quedó y en qué criterio."},{"t":"Empática: juzga el trabajo, no a la persona.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Ninguna falla: esta devolución sirve.","tipo":"bien","porque":"Correcto: ninguna falla. Frecuente (cinco), inmediata (cuatro días), discriminante (la rúbrica marcada) y empática (una frase personal sobre el trabajo). Y es perfectamente sostenible con un grupo grande."}]},{"enunciado":"\u003cem>Comentarios extensos y detallados en el margen de cada trabajo, escritos con cuidado. Es la única devolución del semestre y llega en la semana final.\u003c/em>","pregunta":"¿Qué condición falla aquí?","opciones":[{"t":"Frecuente: llega muchas veces, no una sola.","tipo":"bien","porque":"Sí, y es la más frustrante de todas porque es la que más trabajo costó. Una sola devolución, por buena que sea, no le da al estudiante ninguna oportunidad de corregir. \u003cstrong>Vale más repartir ese mismo esfuerzo en tres momentos.\u003c/strong>"},{"t":"Inmediata: llega cerca de la entrega.","tipo":"abierto","porque":"También llega tarde, sí — pero la raíz es que hay una sola. Si hubiera cinco, la última podría llegar tarde sin consecuencias."},{"t":"Discriminante: dice con precisión qué está logrado y qué no.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Empática: juzga el trabajo, no a la persona.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Ninguna falla: esta devolución sirve.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."}]},{"enunciado":"\u003cem>Quince minutos al inicio de la clase siguiente señalando los tres errores más comunes de la entrega y los dos aciertos que casi nadie vio. Sin nombres.\u003c/em>","pregunta":"¿Qué condición falla aquí?","opciones":[{"t":"Frecuente: llega muchas veces, no una sola.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Inmediata: llega cerca de la entrega.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Discriminante: dice con precisión qué está logrado y qué no.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Empática: juzga el trabajo, no a la persona.","tipo":"mal","porque":"Al no dar nombres, es más empática que muchas devoluciones individuales."},{"t":"Ninguna falla: esta devolución sirve.","tipo":"bien","porque":"Correcto: ninguna falla, y con ciento veinte estudiantes. Llega en la clase siguiente, es precisa, no señala a nadie y se repite en cada entrega. \u003cstrong>Esta es la respuesta práctica a «no tengo tiempo para retroalimentar».\u003c/strong>"}]},{"enunciado":"\u003cem>«Revisar la bibliografía. Ampliar el marco teórico. Mejorar la redacción.» Devuelta en dos días, una de cuatro devoluciones del curso.\u003c/em>","pregunta":"¿Qué condición falla aquí?","opciones":[{"t":"Frecuente: llega muchas veces, no una sola.","tipo":"mal","porque":"Cuatro devoluciones en un curso es una frecuencia razonable."},{"t":"Inmediata: llega cerca de la entrega.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Discriminante: dice con precisión qué está logrado y qué no.","tipo":"bien","porque":"Sí. Tres instrucciones genéricas que servirían para cualquier trabajo de cualquier materia. «Mejorar la redacción» no le dice a nadie qué mejorar. \u003cstrong>Salida:\u003c/strong> señalar el párrafo concreto y qué pasa en él."},{"t":"Empática: juzga el trabajo, no a la persona.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Ninguna falla: esta devolución sirve.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."}]},{"enunciado":"\u003cem>El docente devuelve la valoración del estudiante que se autoevaluó con la rúbrica, marcando en qué criterios coincide y en cuáles no, con una línea explicando cada diferencia. A los tres días.\u003c/em>","pregunta":"¿Qué condición falla aquí?","opciones":[{"t":"Frecuente: llega muchas veces, no una sola.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Inmediata: llega cerca de la entrega.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Discriminante: dice con precisión qué está logrado y qué no.","tipo":"mal","porque":"Explicar cada diferencia criterio por criterio es exactamente lo que significa discriminante."},{"t":"Empática: juzga el trabajo, no a la persona.","tipo":"mal","porque":"Esa condición se cumple. Vuelva a leer: fíjese en cuándo llega, cuántas veces, qué tan precisa es y sobre quién habla."},{"t":"Ninguna falla: esta devolución sirve.","tipo":"bien","porque":"Correcto: ninguna falla, y además hace algo que las otras no: \u003cstrong>la distancia entre las dos valoraciones es información sobre cuánto se conoce el estudiante\u003c/strong>. Es más rápido de escribir que una devolución desde cero."}],"nota":"Tres de las ocho no fallan en nada. Vale la pena fijarse en que las tres son sostenibles con grupos grandes."}],"cierre":{"titulo":"Las que sirven son las baratas","cuerpo":"\u003cp>Fíjese en las tres que no fallan en nada: \u003cstrong>una rúbrica marcada con una frase, quince minutos de devolución colectiva, y una respuesta a la autoevaluación del estudiante\u003c/strong>. Ninguna es un comentario extenso individual.\u003c/p>\u003cp>Y la que más trabajo costó —los comentarios detallados en el margen— es la que falla, porque llega una sola vez y al final. El esfuerzo estaba; el diseño no.\u003c/p>\u003cp>Diseñe el plan que sus condiciones aguantan. Una devolución modesta que llega vale más que una excelente que no.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Esa es","mal":"Esa se cumple","abierto":"También falla"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

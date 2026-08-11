@@ -1,0 +1,147 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>¿De qué clase es esto?</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>¿De qué clase es esto?</h1><p class="entrada">Diez frases de docentes, de áreas distintas. Decida de qué clase de aprendizaje habla cada una. Tres no tienen respuesta única: están señaladas y son las que más enseñan.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cem>«Quiero que sepan explicar por qué el calor no vuelve solo al lugar de donde salió.»\u003c/em>","pregunta":"¿De qué clase de aprendizaje está hablando?","opciones":[{"t":"Conocimiento fundamental","tipo":"bien","porque":"Sí. Es una idea central de la materia, formulada como algo que el estudiante podría decir. Eso es conocimiento fundamental bien escrito."},{"t":"Aplicación","tipo":"mal","porque":"No: no se le pide hacer nada con la idea todavía, se le pide entenderla y poder decirla."},{"t":"Integración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Dimensión humana","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Compromiso, interés y valoración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aprender a aprender","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."}]},{"enunciado":"\u003cem>«Quiero que ante un proceso real sepan qué datos les faltan y cómo conseguirlos.»\u003c/em>","pregunta":"¿De qué clase de aprendizaje está hablando?","opciones":[{"t":"Conocimiento fundamental","tipo":"mal","porque":"No. Saber qué datos faltan exige usar lo que sabe sobre una situación concreta: eso ya salió del conocimiento fundamental."},{"t":"Aplicación","tipo":"bien","porque":"Sí. Hay una situación sin etiqueta y una decisión que tomar. Eso es aplicación, no ejercicio."},{"t":"Integración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Dimensión humana","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Compromiso, interés y valoración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aprender a aprender","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."}]},{"enunciado":"\u003cem>«Quiero que descubran qué papel tienden a tomar cuando trabajan con otros.»\u003c/em>","pregunta":"¿De qué clase de aprendizaje está hablando?","opciones":[{"t":"Conocimiento fundamental","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aplicación","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Integración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Dimensión humana","tipo":"bien","porque":"Sí. Aprender sobre uno mismo trabajando con otros es exactamente la dimensión humana."},{"t":"Compromiso, interés y valoración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aprender a aprender","tipo":"abierto","porque":"Se entiende la duda, pero no. Aprender a aprender es sobre cómo estudia y cómo dirige su aprendizaje; esto es sobre quién es cuando trabaja con gente."}]},{"enunciado":"\u003cem>«Quiero que después del curso sigan una cuenta o una revista del tema por su cuenta.»\u003c/em>","pregunta":"¿De qué clase de aprendizaje está hablando?","opciones":[{"t":"Conocimiento fundamental","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aplicación","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Integración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Dimensión humana","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Compromiso, interés y valoración","tipo":"bien","porque":"Sí. Que algo pase a importarle lo suficiente como para seguirlo sin que nadie se lo pida es compromiso."},{"t":"Aprender a aprender","tipo":"abierto","porque":"Muy defendible: seguir aprendiendo solo también es aprender a aprender. La diferencia está en qué lo mueve — aquí lo que se busca es el interés, no la destreza para buscar."}],"nota":"Este es uno de los tres sin respuesta única. Compromiso y aprender a aprender se tocan casi siempre."},{"enunciado":"\u003cem>«Quiero que noten cuándo no entendieron algo, en vez de seguir de largo.»\u003c/em>","pregunta":"¿De qué clase de aprendizaje está hablando?","opciones":[{"t":"Conocimiento fundamental","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aplicación","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Integración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Dimensión humana","tipo":"abierto","porque":"No exactamente. Es sobre uno mismo, sí, pero sobre cómo funciona su aprendizaje — eso lo pone en aprender a aprender."},{"t":"Compromiso, interés y valoración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aprender a aprender","tipo":"bien","porque":"Sí, y es la parte más difícil de aprender a aprender. Darse cuenta de que uno no entendió es más raro de lo que parece."}]},{"enunciado":"\u003cem>«Quiero que vean que lo que damos aquí explica algo que pasa en su barrio.»\u003c/em>","pregunta":"¿De qué clase de aprendizaje está hablando?","opciones":[{"t":"Conocimiento fundamental","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aplicación","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Integración","tipo":"bien","porque":"Sí. Conectar la materia con la vida del estudiante es una de las tres direcciones de la integración, y la que más mueve el interés."},{"t":"Dimensión humana","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Compromiso, interés y valoración","tipo":"abierto","porque":"Se toca con el compromiso, porque conectar con la propia vida suele despertar interés. Pero lo que se pide aquí es la conexión, no el interés."},{"t":"Aprender a aprender","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."}]},{"enunciado":"\u003cem>«Quiero que sepan calibrar el equipo sin que yo esté al lado.»\u003c/em>","pregunta":"¿De qué clase de aprendizaje está hablando?","opciones":[{"t":"Conocimiento fundamental","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aplicación","tipo":"bien","porque":"Sí. Es una habilidad, y las habilidades están dentro de la aplicación."},{"t":"Integración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Dimensión humana","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Compromiso, interés y valoración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aprender a aprender","tipo":"mal","porque":"No. Que lo haga sin usted al lado es una condición de la evidencia, no la clase de aprendizaje. Sigue siendo saber hacer algo."}]},{"enunciado":"\u003cem>«Quiero que entiendan qué le pasa a una familia cuando recibe un diagnóstico así.»\u003c/em>","pregunta":"¿De qué clase de aprendizaje está hablando?","opciones":[{"t":"Conocimiento fundamental","tipo":"mal","porque":"No. Puede haber contenido detrás, pero lo que se busca no es que lo recuerde: es que entienda a alguien."},{"t":"Aplicación","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Integración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Dimensión humana","tipo":"bien","porque":"Sí. Aprender sobre los otros —cómo se ve el mundo desde su lado— es la otra dirección de la dimensión humana."},{"t":"Compromiso, interés y valoración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aprender a aprender","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."}]},{"enunciado":"\u003cem>«Quiero que se les quite la idea de que esta materia es un trámite.»\u003c/em>","pregunta":"¿De qué clase de aprendizaje está hablando?","opciones":[{"t":"Conocimiento fundamental","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aplicación","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Integración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Dimensión humana","tipo":"abierto","porque":"No. Aquí no aprende sobre sí mismo ni sobre otros: cambia su relación con la materia."},{"t":"Compromiso, interés y valoración","tipo":"bien","porque":"Sí. Cambiar lo que el estudiante siente hacia la materia es compromiso, y suele ser la condición para que todo lo demás ocurra."},{"t":"Aprender a aprender","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."}]},{"enunciado":"\u003cem>«Quiero que comparen lo que decimos aquí con lo que les dijeron en la materia anterior.»\u003c/em>","pregunta":"¿De qué clase de aprendizaje está hablando?","opciones":[{"t":"Conocimiento fundamental","tipo":"abierto","porque":"Hay contenido de por medio, pero lo que se pide es el puente entre dos cuerpos de contenido, no cada uno por separado."},{"t":"Aplicación","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Integración","tipo":"bien","porque":"Sí. Es integración hacia los lados: entre asignaturas. La dirección más olvidada de las tres."},{"t":"Dimensión humana","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Compromiso, interés y valoración","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."},{"t":"Aprender a aprender","tipo":"mal","porque":"Esta no es. Vuelva a leer qué se le pide al estudiante: eso es lo que decide la clase de aprendizaje, no el tema."}],"nota":"Último caso sin respuesta única: cuando hay dos materias, la línea entre conocimiento e integración se vuelve fina."}],"cierre":{"titulo":"Seis clases, y ningún orden","cuerpo":"\u003cp>Si le costaron los tres casos señalados, va bien: \u003cstrong>que se toquen es el modelo funcionando\u003c/strong>, no un defecto de las preguntas. Fink insiste en que las seis se alimentan entre sí.\u003c/p>\u003cp>Fíjese en algo más: ninguna de las diez frases era «más avanzada» que otra. No hay escalera. Un curso puede empezar por el compromiso y llegar al conocimiento fundamental — y muchas veces funciona mejor así.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto');
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

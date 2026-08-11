@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>A cinco escalones de distancia</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>A cinco escalones de distancia</h1><p class="entrada">Seis grupos con puntos de partida distintos. Para cada uno, elija la meta de aprender a aprender que es realista — no la que suena mejor.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cstrong>Primer semestre, técnico.\u003c/strong> \u003cem>La mayoría no ha leído un texto académico completo nunca. Vienen de colegios donde se estudiaba de la fotocopia que daba el profesor.\u003c/em>","pregunta":"¿Qué meta es el escalón siguiente?","opciones":[{"t":"Diseña su propio plan de formación continua para los próximos cinco años.","tipo":"mal","porque":"Está a cinco escalones. No es ambiciosa: es decorativa. Van a copiar un plan de internet y usted va a calificar un formato lleno."},{"t":"Lee un texto de cuatro páginas de la materia sin abandonarlo, y dice con sus palabras cuál es la idea principal.","tipo":"bien","porque":"Sí. Suena modesto y es exactamente lo que hace falta: sin esto, ninguna de las metas mayores es alcanzable. Y es medible."},{"t":"Distingue una fuente confiable de una que no lo es y justifica el criterio.","tipo":"abierto","porque":"Se puede defender como segundo escalón. Pero juzgar una fuente exige haber leído varias, y ellos todavía no terminan una."}]},{"enunciado":"\u003cstrong>Tercer semestre, pregrado.\u003c/strong> \u003cem>Leen lo que se les manda y lo entienden. Cuando buscan por su cuenta, usan el primer resultado que aparece y no distinguen una revista de un blog.\u003c/em>","pregunta":"¿Qué meta es el escalón siguiente?","opciones":[{"t":"Encuentra una fuente sobre un tema del curso y justifica por qué es confiable en esta disciplina.","tipo":"bien","porque":"Sí, y note la precisión: \u003cem>en esta disciplina\u003c/em>. Lo que hace confiable a una fuente en derecho no es lo mismo que en biología, y eso es justo lo que hay que enseñar."},{"t":"Lee un texto largo sin abandonarlo.","tipo":"mal","porque":"Eso ya lo hacen. Una meta que describe lo que el estudiante ya sabe hacer no es una meta: es una descripción."},{"t":"Identifica los vacíos de la literatura en su campo y formula una pregunta de investigación original.","tipo":"mal","porque":"Eso es trabajo de posgrado. Entre «usa el primer resultado de Google» y esto hay tres o cuatro escalones."}]},{"enunciado":"\u003cstrong>Sexto semestre.\u003c/strong> \u003cem>Buscan bien y juzgan fuentes con criterio. Pero cuando les va mal en una evaluación, vuelven a estudiar exactamente igual que antes.\u003c/em>","pregunta":"¿Qué meta es el escalón siguiente?","opciones":[{"t":"Después de una evaluación, identifica cuál de sus formas de estudiar le falló y qué va a cambiar.","tipo":"bien","porque":"Sí. Esto es autorregulación, y es lo que ese grupo no tiene: repiten el método que no funcionó porque nunca lo miraron como método."},{"t":"Busca fuentes confiables sobre temas del curso.","tipo":"mal","porque":"Ya lo hacen bien. Vuelva a leer el punto de partida."},{"t":"Se autoevalúa con la rúbrica antes de entregar.","tipo":"abierto","porque":"Muy defendible, y es un buen escalón intermedio. La diferencia es que la autoevaluación mira el producto y la otra meta mira el método — y lo que este grupo no revisa es el método."}]},{"enunciado":"\u003cstrong>Especialización, profesionales en ejercicio.\u003c/strong> \u003cem>Todos trabajan. Buscan y juzgan bien, y estudian con método. Lo que no tienen es tiempo, y lo que necesitan es mantenerse al día en un campo que cambia rápido.\u003c/em>","pregunta":"¿Qué meta es el escalón siguiente?","opciones":[{"t":"Arma una rutina propia de actualización sostenible con su carga laboral, y la prueba durante el curso.","tipo":"bien","porque":"Sí, y aquí sí cabe la meta ambiciosa: este grupo tiene todos los escalones previos. Lo que no puede faltar es \u003cem>«y la prueba durante el curso»\u003c/em> — un plan que no se ensaya es papel."},{"t":"Lee los textos asignados y trae tres preguntas.","tipo":"mal","porque":"Muy por debajo de donde están, y además ignora lo que dice el punto de partida: no tienen tiempo. Esta meta les quita horas sin darles nada."},{"t":"Distingue una fuente confiable de una que no lo es.","tipo":"mal","porque":"Ya lo hacen. Son profesionales en ejercicio."}]},{"enunciado":"\u003cstrong>Segundo semestre, virtual asincrónico.\u003c/strong> \u003cem>Trabajan y estudian de noche. Cumplen las entregas, pero nunca preguntan nada y no se sabe si entendieron hasta la evaluación.\u003c/em>","pregunta":"¿Qué meta es el escalón siguiente?","opciones":[{"t":"Detecta durante la unidad qué no entendió y lo deja por escrito antes de la evaluación.","tipo":"bien","porque":"Sí. Darse cuenta de que uno no entendió es la parte más difícil de aprender a aprender, y en un curso asincrónico es lo único que evita que el problema aparezca cuando ya es tarde."},{"t":"Participa activamente en los espacios de discusión del curso.","tipo":"mal","porque":"En un curso asincrónico donde nadie coincide, y con estudiantes que trabajan, esta meta pide algo que las condiciones no permiten. Vuelva al módulo 2."},{"t":"Autoevalúa cada entrega con la rúbrica.","tipo":"abierto","porque":"Buena meta y compatible. Pero mira lo que entregó, no lo que no entendió — y el problema de este grupo aparece antes de la entrega."}]},{"enunciado":"\u003cstrong>Último semestre.\u003c/strong> \u003cem>Buenos estudiantes, autónomos, con método. En seis meses están trabajando y nadie les va a poner nota nunca más.\u003c/em>","pregunta":"¿Qué meta es el escalón siguiente?","opciones":[{"t":"Juzga la calidad de su propio trabajo con criterios explícitos, sin que nadie se los dé.","tipo":"bien","porque":"Sí, y es probablemente lo más importante que se puede dejar en un último semestre. Fink sostiene que es la competencia que más va a necesitar el egresado, y es la que menos se practica en quince años de escolaridad."},{"t":"Lee y juzga fuentes con criterio disciplinar.","tipo":"mal","porque":"Ya lo hacen. Es una meta de tercer semestre."},{"t":"Formula preguntas de indagación sobre la materia.","tipo":"abierto","porque":"Es una buena meta, pero mira hacia el conocimiento. La que hace falta en el último semestre mira hacia el ejercicio profesional, donde el juicio sobre el propio trabajo es lo único que va a quedar."}]}],"cierre":{"titulo":"El escalón siguiente, no el que suena mejor","cuerpo":"\u003cp>Fíjese en lo que se repitió: \u003cstrong>en tres de los seis casos, la opción equivocada era la que sonaba más ambiciosa\u003c/strong>. Y en dos, la opción equivocada describía algo que el grupo ya sabía hacer.\u003c/p>\u003cp>Una meta de aprender a aprender que no mira el punto de partida no es ambiciosa: es decorativa. Y una que describe lo que ya hacen no es una meta: es una descripción.\u003c/p>\u003cp>Vuelva a la hoja \u003cem>Quiénes llegan\u003c/em> del módulo 2 antes de escribir la suya.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Es el escalón siguiente","mal":"Está demasiado lejos","abierto":"Se puede defender"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

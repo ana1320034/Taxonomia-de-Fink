@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>¿Se puede calificar esto?</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>¿Se puede calificar esto?</h1><p class="entrada">Ocho consignas de evaluación tomadas de cursos reales. La prueba es siempre la misma: ¿qué escribiría un estudiante que quiere la nota y piensa distinto de usted?</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cem>«Explique por qué es importante la sostenibilidad en la ingeniería contemporánea.»\u003c/em>","pregunta":"¿Qué está evaluando esta consigna?","opciones":[{"t":"Evalúa el trabajo intelectual sobre el asunto.","tipo":"mal","porque":"Fíjese en el «por qué es importante»: la respuesta viene dentro de la pregunta. No hay trabajo intelectual, hay adivinanza resuelta."},{"t":"Está calificando la conclusión: premia a quien diga lo esperado.","tipo":"bien","porque":"Sí. La consigna ya trae la conclusión puesta: es importante. Solo queda escribir el párrafo que el profesor quiere leer. \u003cstrong>Reescrita:\u003c/strong> «identifique una decisión de diseño donde lo sostenible y lo barato no coincidan, y diga cómo decidiría»."}]},{"enunciado":"\u003cem>«Después de leer los dos artículos, sostenga una posición sobre el uso de esta técnica y responda a la objeción más fuerte que encuentre en contra.»\u003c/em>","pregunta":"¿Qué está evaluando esta consigna?","opciones":[{"t":"Evalúa el trabajo intelectual sobre el asunto.","tipo":"bien","porque":"Sí, y la segunda mitad es la que hace el trabajo: obliga a conocer y enfrentar la objeción contraria. Un estudiante que sostenga cualquiera de las dos posiciones puede sacar la nota máxima."},{"t":"Está calificando la conclusión: premia a quien diga lo esperado.","tipo":"mal","porque":"No se pide una conclusión concreta: se pide sostener una y hacerse cargo de lo que la contradice."}]},{"enunciado":"\u003cem>«Reflexione sobre la importancia de la ética en su futura profesión.»\u003c/em>","pregunta":"¿Qué está evaluando esta consigna?","opciones":[{"t":"Evalúa el trabajo intelectual sobre el asunto.","tipo":"mal","porque":"«Reflexione sobre la importancia de» no pide ningún trabajo: pide una declaración de adhesión bien redactada."},{"t":"Está calificando la conclusión: premia a quien diga lo esperado.","tipo":"bien","porque":"Sí, y es la fórmula más repetida de todas. Produce párrafos intercambiables que nadie lee con atención. \u003cstrong>Reescrita:\u003c/strong> «describa una situación de su práctica donde lo correcto y lo conveniente no coincidan, y explique cómo decidiría y qué le costaría»."}]},{"enunciado":"\u003cem>«Al inicio del curso escribió media página sobre qué pensaba de este tema. Escriba ahora otra media página: qué piensa hoy, y qué lo movió o por qué no se movió.»\u003c/em>","pregunta":"¿Qué está evaluando esta consigna?","opciones":[{"t":"Evalúa el trabajo intelectual sobre el asunto.","tipo":"bien","porque":"Sí, y el \u003cem>«o por qué no se movió»\u003c/em> es lo que la salva. Sin esa cláusula, la consigna estaría premiando el cambio; con ella, se evalúa la calidad del pensamiento, no su dirección."},{"t":"Está calificando la conclusión: premia a quien diga lo esperado.","tipo":"mal","porque":"Mire otra vez la última cláusula: quien no cambió de opinión también puede responder bien."}]},{"enunciado":"\u003cem>«Argumente a favor de la implementación de este modelo en el sistema educativo colombiano.»\u003c/em>","pregunta":"¿Qué está evaluando esta consigna?","opciones":[{"t":"Evalúa el trabajo intelectual sobre el asunto.","tipo":"abierto","porque":"Argumentar es trabajo intelectual, sí — pero aquí no se puede elegir qué defender. Es un ejercicio de retórica, no de juicio."},{"t":"Está calificando la conclusión: premia a quien diga lo esperado.","tipo":"bien","porque":"Sí. «A favor de» fija la conclusión antes de empezar. \u003cstrong>Reescrita:\u003c/strong> «argumente a favor o en contra, y responda al mejor argumento del lado que no eligió»."}]},{"enunciado":"\u003cem>«Formule una pregunta sobre la materia que le gustaría responder y que nadie le pidió, y diga por qué esa y no otra.»\u003c/em>","pregunta":"¿Qué está evaluando esta consigna?","opciones":[{"t":"Evalúa el trabajo intelectual sobre el asunto.","tipo":"bien","porque":"Sí, y es de las más baratas de calificar. Una pregunta que a alguien le importa de verdad es bastante difícil de fingir, y el «por qué esa» da el material para valorarla."},{"t":"Está calificando la conclusión: premia a quien diga lo esperado.","tipo":"mal","porque":"No hay conclusión esperada: cualquier pregunta sirve si está bien justificada."}]},{"enunciado":"\u003cem>«Evalúe el impacto social de la obra y proponga una recomendación al equipo directivo.»\u003c/em>","pregunta":"¿Qué está evaluando esta consigna?","opciones":[{"t":"Evalúa el trabajo intelectual sobre el asunto.","tipo":"bien","porque":"Sí. Evaluar y recomendar exigen criterios y una decisión, y no hay una recomendación correcta prefijada. Un estudiante que recomiende lo contrario puede tener razón."},{"t":"Está calificando la conclusión: premia a quien diga lo esperado.","tipo":"abierto","porque":"Podría deslizarse hacia lo esperable si el docente tiene una opinión conocida y fuerte sobre esa obra. Vale la pena hacerse esa pregunta al escribir la rúbrica."}],"nota":"Este es discutible: la consigna está bien, pero su seguridad depende de cuánto sepan los estudiantes de la opinión del docente."},{"enunciado":"\u003cem>«Demuestre haber tomado conciencia sobre la problemática ambiental de su región.»\u003c/em>","pregunta":"¿Qué está evaluando esta consigna?","opciones":[{"t":"Evalúa el trabajo intelectual sobre el asunto.","tipo":"mal","porque":"«Demuestre haber tomado conciencia» no describe ningún trabajo observable: describe un estado interior que hay que aparentar."},{"t":"Está calificando la conclusión: premia a quien diga lo esperado.","tipo":"bien","porque":"Sí, y aquí es explícito: se pide \u003cem>demostrar conciencia\u003c/em>. Es literalmente pedir una actuación. \u003cstrong>Reescrita:\u003c/strong> «identifique cuál de las consecuencias ambientales de su región le parece más grave y sostenga por qué esa y no otra»."}]}],"cierre":{"titulo":"La prueba de la conclusión contraria","cuerpo":"\u003cp>Las cuatro consignas que fallan tienen la misma forma: \u003cstrong>«explique por qué es importante», «reflexione sobre la importancia de», «argumente a favor de», «demuestre haber tomado conciencia»\u003c/strong>. Todas traen la conclusión puesta.\u003c/p>\u003cp>Y las que funcionan comparten otra: piden \u003cem>sostener con razones\u003c/em>, y dejan libre hacia dónde. Una incluso lo dice explícitamente — «o por qué no se movió».\u003c/p>\u003cp>\u003cstrong>La prueba, para su propia consigna:\u003c/strong> escriba qué respondería un estudiante que llega a la conclusión opuesta a la suya. Si con esa respuesta no puede sacar la nota máxima, la consigna está mal escrita.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Bien visto","mal":"Mírelo otra vez","abierto":"Se puede defender"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

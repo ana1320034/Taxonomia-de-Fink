@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>¿Qué está evaluando esto?</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>¿Qué está evaluando esto?</h1><p class="entrada">Ocho instrumentos para las tres clases de aprendizaje que no se dejan examinar. Decida si cada uno evalúa evidencia o si está calificando a la persona. Tres son discutibles: el límite no siempre es nítido.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cem>Rúbrica de trabajo en equipo con el criterio «muestra actitud positiva y disposición a colaborar».\u003c/em>","pregunta":"¿Qué está evaluando este instrumento?","opciones":[{"t":"Evalúa evidencia: algo que la persona produjo y se puede leer con criterios.","tipo":"mal","porque":"«Actitud positiva» no es algo que la persona produzca: es un juicio sobre cómo es."},{"t":"Está calificando a la persona: lo que siente, lo que cree o cómo es.","tipo":"bien","porque":"Sí. Está calificando el carácter, y además premia a quien mejor lo aparente. \u003cstrong>Salida:\u003c/strong> «describe qué papel asumió en el equipo y qué efecto tuvo en los demás»."}]},{"enunciado":"\u003cem>Tres preguntas escritas al cerrar un trabajo grupal: qué papel tomó, qué hizo ante el desacuerdo, qué haría distinto.\u003c/em>","pregunta":"¿Qué está evaluando este instrumento?","opciones":[{"t":"Evalúa evidencia: algo que la persona produjo y se puede leer con criterios.","tipo":"bien","porque":"Sí. Las tres piden describir hechos y decisiones propias. El resultado es un texto que se puede leer con criterios, sin entrar en la cabeza de nadie."},{"t":"Está calificando a la persona: lo que siente, lo que cree o cómo es.","tipo":"mal","porque":"No se le pide ser de una manera: se le pide contar qué hizo."}]},{"enunciado":"\u003cem>Media página al inicio del curso y media al final sobre qué piensa del tema, valorando la calidad del segundo texto.\u003c/em>","pregunta":"¿Qué está evaluando este instrumento?","opciones":[{"t":"Evalúa evidencia: algo que la persona produjo y se puede leer con criterios.","tipo":"bien","porque":"Sí, y el detalle decisivo es «valorando la calidad del segundo texto», no su dirección. Un estudiante que no cambió de opinión y explica por qué puede alcanzar el nivel máximo."},{"t":"Está calificando a la persona: lo que siente, lo que cree o cómo es.","tipo":"abierto","porque":"Lo sería si se valorara el cambio. Como se valora la calidad del razonamiento, evalúa evidencia."}]},{"enunciado":"\u003cem>Portafolio con las evidencias que el estudiante elige, más la justificación de por qué eligió esas.\u003c/em>","pregunta":"¿Qué está evaluando este instrumento?","opciones":[{"t":"Evalúa evidencia: algo que la persona produjo y se puede leer con criterios.","tipo":"bien","porque":"Sí, y la justificación es lo que lo salva: sin ella, un portafolio es una carpeta. Con ella, es la evidencia de un criterio propio — que es aprender a aprender."},{"t":"Está calificando a la persona: lo que siente, lo que cree o cómo es.","tipo":"mal","porque":"La selección y su justificación son producciones del estudiante, no rasgos suyos."}]},{"enunciado":"\u003cem>Diario personal de aprendizaje, entregado completo y calificado con el 30 % de la nota final.\u003c/em>","pregunta":"¿Qué está evaluando este instrumento?","opciones":[{"t":"Evalúa evidencia: algo que la persona produjo y se puede leer con criterios.","tipo":"abierto","porque":"El diario en sí puede ser buena evidencia. Lo que lo daña es el incentivo: cuanto más pesa en la nota, más se finge."},{"t":"Está calificando a la persona: lo que siente, lo que cree o cómo es.","tipo":"bien","porque":"Sí, y el problema es el peso. Con el 30 % en juego, el diario deja de ser un espacio para pensar y se convierte en un texto para complacer. \u003cstrong>Salida:\u003c/strong> peso bajo o cero, y valorar solo que exista y tenga contenido propio."}],"nota":"Discutible: no es el instrumento el que falla, es cuánto pesa."},{"enunciado":"\u003cem>Coevaluación de 360 grados donde cada integrante califica a los demás con una rúbrica de conductas observables.\u003c/em>","pregunta":"¿Qué está evaluando este instrumento?","opciones":[{"t":"Evalúa evidencia: algo que la persona produjo y se puede leer con criterios.","tipo":"bien","porque":"Sí, siempre que la rúbrica describa conductas —«avisó cuando iba a retrasarse», «respondió a los mensajes del equipo»— y no rasgos. Con conductas observables, evalúa evidencia."},{"t":"Está calificando a la persona: lo que siente, lo que cree o cómo es.","tipo":"abierto","porque":"Depende enteramente de la rúbrica. Si dijera «es buen compañero», sí lo sería."}],"nota":"Este instrumento cae de un lado o del otro según cómo esté escrita la rúbrica."},{"enunciado":"\u003cem>Una pregunta sobre la materia que el estudiante formula por su cuenta, con la razón de por qué esa y no otra.\u003c/em>","pregunta":"¿Qué está evaluando este instrumento?","opciones":[{"t":"Evalúa evidencia: algo que la persona produjo y se puede leer con criterios.","tipo":"bien","porque":"Sí, y es de los más elegantes: barato de aplicar, difícil de fingir y produce un texto valorable. Una pregunta que a alguien de verdad le interesa se distingue bastante bien de una inventada para cumplir."},{"t":"Está calificando a la persona: lo que siente, lo que cree o cómo es.","tipo":"mal","porque":"Formular una pregunta y justificarla es una producción, no un estado interior."}]},{"enunciado":"\u003cem>Encuesta al final del curso: «califique de 1 a 5 cuánto aumentó su interés por la materia».\u003c/em>","pregunta":"¿Qué está evaluando este instrumento?","opciones":[{"t":"Evalúa evidencia: algo que la persona produjo y se puede leer con criterios.","tipo":"mal","porque":"Un número autodeclarado sobre el propio interés no es evidencia: es una declaración."},{"t":"Está calificando a la persona: lo que siente, lo que cree o cómo es.","tipo":"bien","porque":"Sí. Le está pidiendo al estudiante que puntúe su propio estado interior, y además al terminar el curso, cuando ya sabe qué se espera. Como información del curso puede servir; \u003cstrong>como evaluación de un estudiante, no.\u003c/strong>"}]}],"cierre":{"titulo":"La línea, y los tres casos donde se difumina","cuerpo":"\u003cp>Los instrumentos que funcionan tienen todos la misma forma: \u003cstrong>producen un texto donde el estudiante describe lo que hizo, decidió o pensó\u003c/strong>. Eso se lee con criterios y se puede discutir.\u003c/p>\u003cp>Los que fallan piden un estado: actitud positiva, nivel de interés, compromiso. Y tienen un efecto previsible: enseñan a aparentarlo.\u003c/p>\u003cp>Y los tres discutibles enseñan lo más útil: \u003cstrong>el mismo instrumento cae de un lado o del otro según cuánto pese en la nota y según cómo esté escrita la rúbrica\u003c/strong>. No hay instrumentos buenos y malos: hay usos.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Bien visto","mal":"Mírelo otra vez","abierto":"Se puede defender"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

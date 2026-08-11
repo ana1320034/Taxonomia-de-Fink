@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>¿Esto necesita estar en clase?</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>¿Esto necesita estar en clase?</h1><p class="entrada">Ocho momentos de contenido de distintas asignaturas. El criterio es uno solo: lo que necesita al docente es lo que implica corregir un razonamiento mientras está ocurriendo.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cem>La definición de los tres tipos de sesgo, con un ejemplo de cada uno.\u003c/em>","pregunta":"¿Esto necesita estar en clase?","opciones":[{"t":"Necesita al docente delante.","tipo":"mal","porque":"Pregúntese qué añade su presencia a leer esa definición. Si la respuesta es «la digo con mis palabras», eso también se puede grabar o escribir."},{"t":"Puede ocurrir antes, por cuenta del estudiante.","tipo":"bien","porque":"Sí. Está en cualquier libro, en cualquier video decente y en dos páginas bien escritas. Gastar treinta minutos de clase en esto es gastar el recurso escaso en lo único que no lo era."}]},{"enunciado":"\u003cem>Un estudiante propone un diseño de estudio y hay que mostrarle, ahí mismo, dónde su razonamiento se rompe.\u003c/em>","pregunta":"¿Esto necesita estar en clase?","opciones":[{"t":"Necesita al docente delante.","tipo":"bien","porque":"Sí, y es el ejemplo puro. Nadie más puede hacer esto: exige ver el razonamiento a medio camino y decir exactamente dónde se torció. Ningún libro lo hace."},{"t":"Puede ocurrir antes, por cuenta del estudiante.","tipo":"mal","porque":"No hay manera: el razonamiento todavía no existe cuando el estudiante está solo. Aparece en la conversación."}]},{"enunciado":"\u003cem>La historia de la disciplina, desde sus orígenes hasta hoy.\u003c/em>","pregunta":"¿Esto necesita estar en clase?","opciones":[{"t":"Necesita al docente delante.","tipo":"mal","porque":"Contarla bien es agradable, pero no es algo que solo usted pueda hacer."},{"t":"Puede ocurrir antes, por cuenta del estudiante.","tipo":"bien","porque":"Sí. Es contenido narrativo y perfectamente transmisible. \u003cstrong>Con una condición:\u003c/strong> que haya algo que devolver — tres preguntas, una línea de tiempo que completar. Sin eso, no se hace."}]},{"enunciado":"\u003cem>Un debate sobre un caso donde no hay respuesta correcta y los estudiantes se van a dividir.\u003c/em>","pregunta":"¿Esto necesita estar en clase?","opciones":[{"t":"Necesita al docente delante.","tipo":"bien","porque":"Sí. Necesita a alguien que sostenga la conversación, la reoriente cuando se va, y sobre todo que aguante el silencio incómodo sin resolverlo. Eso no ocurre en un foro asincrónico."},{"t":"Puede ocurrir antes, por cuenta del estudiante.","tipo":"abierto","porque":"Se puede intentar por escrito, y a veces sale. Pero la parte más valiosa de un desacuerdo real es la reacción inmediata, y eso pide presencia."}]},{"enunciado":"\u003cem>La demostración de cómo se calibra el equipo, paso a paso.\u003c/em>","pregunta":"¿Esto necesita estar en clase?","opciones":[{"t":"Necesita al docente delante.","tipo":"abierto","porque":"Mirar cómo se hace se puede grabar. Hacerlo con alguien que corrija, no."},{"t":"Puede ocurrir antes, por cuenta del estudiante.","tipo":"bien","porque":"Sí, la demostración se graba una vez y se ve las veces que haga falta — que es mejor que verla una sola vez en vivo. \u003cstrong>Lo que sí necesita al docente\u003c/strong> es lo siguiente: que el estudiante lo haga y usted le corrija la mano."}]},{"enunciado":"\u003cem>Resolver las dudas que quedaron de la lectura de la semana.\u003c/em>","pregunta":"¿Esto necesita estar en clase?","opciones":[{"t":"Necesita al docente delante.","tipo":"bien","porque":"Sí, y es el mejor uso posible del tiempo presencial: las dudas ya existen, son suyas, y usted responde exactamente lo que hace falta. Es lo contrario de explicar por si acaso."},{"t":"Puede ocurrir antes, por cuenta del estudiante.","tipo":"mal","porque":"Las dudas se pueden recoger antes por escrito —conviene—, pero resolverlas es donde su presencia rinde más."}]},{"enunciado":"\u003cem>Leer y comentar el marco normativo vigente que aplica al tema.\u003c/em>","pregunta":"¿Esto necesita estar en clase?","opciones":[{"t":"Necesita al docente delante.","tipo":"abierto","porque":"Si su grupo nunca ha leído un texto normativo, la primera vez puede necesitar acompañamiento. Después de esa primera vez, no."},{"t":"Puede ocurrir antes, por cuenta del estudiante.","tipo":"bien","porque":"Sí, y con un motivo extra: la normativa cambia. Enseñar a buscarla y leerla vale más que leerla juntos una vez — y eso el estudiante lo puede hacer solo, con una guía de qué buscar."}]},{"enunciado":"\u003cem>Los estudiantes traen sus decisiones sobre un caso y hay que compararlas entre ellos.\u003c/em>","pregunta":"¿Esto necesita estar en clase?","opciones":[{"t":"Necesita al docente delante.","tipo":"bien","porque":"Sí. Comparar decisiones distintas sobre el mismo caso solo funciona con todos en el mismo sitio y alguien que ponga las diferencias sobre la mesa. Y es de las actividades más rentables que existen."},{"t":"Puede ocurrir antes, por cuenta del estudiante.","tipo":"mal","porque":"Las decisiones se toman antes —eso sí es trabajo previo—, pero compararlas es la parte que pide estar juntos."}],"nota":"De las ocho, cuatro pueden salir de la clase. Ahí está el tiempo para las otras cuatro."}],"cierre":{"titulo":"La mitad de la hora estaba disponible","cuerpo":"\u003cp>Cuatro de los ocho momentos pueden ocurrir sin usted. Y fíjese en cuáles son: \u003cstrong>definiciones, historia, demostraciones, lectura de documentos\u003c/strong>. Es exactamente lo que se lleva la mayor parte del tiempo presencial en casi cualquier curso.\u003c/p>\u003cp>Los cuatro que sí lo necesitan tienen algo en común: \u003cstrong>hay un razonamiento en marcha que hay que corregir, o decisiones distintas que hay que poner una al lado de la otra\u003c/strong>. Eso no se graba.\u003c/p>\u003cp>Y los tres casos marcados en azul dependen de sus condiciones. Si su grupo nunca ha leído un texto por su cuenta, trasladar la lectura afuera no es liberar tiempo: es perderla.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Bien visto","mal":"Mírelo otra vez","abierto":"Depende de sus condiciones"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

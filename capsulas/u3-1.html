@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>¿Qué queda en tres años?</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>¿Qué queda en tres años?</h1><p class="entrada">Ocho puntos de un temario real. Decida cuáles son conocimiento fundamental —lo que tiene que seguir estando ahí tres años después— y cuáles son desarrollo, ejemplo o detalle.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"De un temario de \u003cem>Fundamentos de epidemiología\u003c/em>:\u003cbr>\u003cbr>\u003cstrong>Diferencia entre asociación y causalidad\u003c/strong>","pregunta":"¿Qué es esto?","opciones":[{"t":"Es conocimiento fundamental: tiene que quedar.","tipo":"bien","porque":"Sí, y probablemente es \u003cem>la\u003c/em> idea de la materia. Sin ella todo lo demás son cuentas. Un egresado que solo recuerde esto ya justifica el curso."},{"t":"Es desarrollo, ejemplo o detalle: sirve para llegar a una idea, pero no es la idea.","tipo":"mal","porque":"Difícil de sostener: quítele esto a la epidemiología y no queda epidemiología, queda aritmética."}]},{"enunciado":"De un temario de \u003cem>Fundamentos de epidemiología\u003c/em>:\u003cbr>\u003cbr>\u003cstrong>Los criterios de Bradford Hill, uno por uno, con su definición\u003c/strong>","pregunta":"¿Qué es esto?","opciones":[{"t":"Es conocimiento fundamental: tiene que quedar.","tipo":"abierto","porque":"Es la trampa más común: como son importantes, parecen fundamentales. Pero la idea es «hay criterios y esto es lo que miran»; la lista se busca cuando hace falta."},{"t":"Es desarrollo, ejemplo o detalle: sirve para llegar a una idea, pero no es la idea.","tipo":"bien","porque":"Sí. Son el desarrollo de la idea anterior. Que sepa que existen criterios para juzgar causalidad es fundamental; recitar los nueve no lo es — se consultan."}]},{"enunciado":"De un temario de \u003cem>Fundamentos de epidemiología\u003c/em>:\u003cbr>\u003cbr>\u003cstrong>Cálculo del riesgo relativo y del odds ratio\u003c/strong>","pregunta":"¿Qué es esto?","opciones":[{"t":"Es conocimiento fundamental: tiene que quedar.","tipo":"bien","porque":"Sí, siempre que lo fundamental sea \u003cem>qué significan\u003c/em> y cuándo se usa cada uno. Si lo fundamental es la fórmula, entonces no: la fórmula está en cualquier parte."},{"t":"Es desarrollo, ejemplo o detalle: sirve para llegar a una idea, pero no es la idea.","tipo":"abierto","porque":"Se puede defender si lo que se enseña es solo la cuenta. Pero interpretar una medida de asociación es de las cosas que un epidemiólogo hace todos los días."}]},{"enunciado":"De un temario de \u003cem>Fundamentos de epidemiología\u003c/em>:\u003cbr>\u003cbr>\u003cstrong>El brote de cólera de Londres en 1854 y el mapa de John Snow\u003c/strong>","pregunta":"¿Qué es esto?","opciones":[{"t":"Es conocimiento fundamental: tiene que quedar.","tipo":"abierto","porque":"Es el caso donde más se confunden el ejemplo y la idea. Pregúntese: si el egresado recuerda el mapa pero no sabe rastrear un brote hoy, ¿sirvió de algo?"},{"t":"Es desarrollo, ejemplo o detalle: sirve para llegar a una idea, pero no es la idea.","tipo":"bien","porque":"Sí. Es el ejemplo con el que se enseña la idea, y es un ejemplo magnífico. Pero lo que tiene que quedar es el razonamiento, no la anécdota — y muchos egresados se acuerdan del mapa y no del razonamiento."}]},{"enunciado":"De un temario de \u003cem>Fundamentos de epidemiología\u003c/em>:\u003cbr>\u003cbr>\u003cstrong>Tipos de sesgo: de selección, de información y de confusión\u003c/strong>","pregunta":"¿Qué es esto?","opciones":[{"t":"Es conocimiento fundamental: tiene que quedar.","tipo":"bien","porque":"Sí. Que un estudio pueda estar mal y haya maneras típicas de estarlo es una idea que organiza toda la disciplina. Es el tipo de cosa que cambia cómo se lee cualquier estudio para siempre."},{"t":"Es desarrollo, ejemplo o detalle: sirve para llegar a una idea, pero no es la idea.","tipo":"mal","porque":"Los subtipos y sus nombres exactos sí son desarrollo. Pero la idea de que existen sesgos sistemáticos es del núcleo."}]},{"enunciado":"De un temario de \u003cem>Fundamentos de epidemiología\u003c/em>:\u003cbr>\u003cbr>\u003cstrong>Las fórmulas de sensibilidad, especificidad, valor predictivo positivo y negativo\u003c/strong>","pregunta":"¿Qué es esto?","opciones":[{"t":"Es conocimiento fundamental: tiene que quedar.","tipo":"abierto","porque":"Es defendible si su asignatura forma a quien va a calcularlas. Aun así, mire si lo que quiere que quede es la fórmula o el razonamiento que la sostiene."},{"t":"Es desarrollo, ejemplo o detalle: sirve para llegar a una idea, pero no es la idea.","tipo":"bien","porque":"Sí, las fórmulas son desarrollo. Lo fundamental es la idea que hay detrás: que una prueba puede fallar de dos maneras distintas y que su utilidad depende de a quién se le aplique."}]},{"enunciado":"De un temario de \u003cem>Fundamentos de epidemiología\u003c/em>:\u003cbr>\u003cbr>\u003cstrong>Historia de la epidemiología: de Hipócrates a la epidemiología moderna\u003c/strong>","pregunta":"¿Qué es esto?","opciones":[{"t":"Es conocimiento fundamental: tiene que quedar.","tipo":"mal","porque":"Difícil de sostener como fundamental, salvo que su curso sea de historia de la ciencia. Vale la pena preguntarse cuántas sesiones ocupa."},{"t":"Es desarrollo, ejemplo o detalle: sirve para llegar a una idea, pero no es la idea.","tipo":"bien","porque":"Sí. Es contexto: ayuda a situar la disciplina y suele abrir el curso. Pero rara vez es lo que un egresado necesita tres años después."}]},{"enunciado":"De un temario de \u003cem>Fundamentos de epidemiología\u003c/em>:\u003cbr>\u003cbr>\u003cstrong>Normativa nacional de notificación obligatoria de eventos de interés en salud pública\u003c/strong>","pregunta":"¿Qué es esto?","opciones":[{"t":"Es conocimiento fundamental: tiene que quedar.","tipo":"abierto","porque":"Es la que más se defiende en las reuniones de área, y la que más rápido se vence. Compare con la unidad 4.3 del curso: lo que caduca no puede ser lo que queda."},{"t":"Es desarrollo, ejemplo o detalle: sirve para llegar a una idea, pero no es la idea.","tipo":"bien","porque":"Sí, y por una razón que conviene tener presente: \u003cstrong>caduca\u003c/strong>. La normativa cambia. Lo fundamental es que exista un sistema de notificación y para qué sirve; el listado vigente se consulta."}],"nota":"Fíjese en cuántos marcó como fundamentales. Si fueron más de cuatro o cinco de ocho, vuelva a mirar: probablemente hay dos que son desarrollo de otro."}],"cierre":{"titulo":"De ocho, tres","cuerpo":"\u003cp>En este temario, tres puntos sostienen la materia: \u003cstrong>la diferencia entre asociación y causalidad, qué significan las medidas de asociación, y que los estudios pueden estar sistemáticamente sesgados\u003c/strong>. Los otros cinco son el desarrollo, el ejemplo y el detalle que llevan hasta ahí.\u003c/p>\u003cp>No sobra ninguno: hacen falta para llegar a las tres. Lo que cambia es la \u003cstrong>jerarquía\u003c/strong> — y sin jerarquía, el estudiante reparte su esfuerzo por igual entre lo central y lo accesorio.\u003c/p>\u003cp>Ahora haga lo mismo con el suyo. Va a doler, y ahí es donde aparece el tiempo para las otras cinco clases de aprendizaje.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Bien decidido","mal":"Mírelo otra vez","abierto":"Se puede defender"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>Lo que traen puesto</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>Lo que traen puesto</h1><p class="entrada">Seis estudiantes y una frase real de las que se oyen el primer día. Diagnostique qué está pasando y qué va a necesitar más ese estudiante. El diagnóstico equivocado lleva a la respuesta equivocada.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cem>«Profe, ¿esto lo vamos a necesitar para el examen de grado?»\u003c/em>","pregunta":"¿Qué está pasando y qué necesita?","opciones":[{"t":"Le falta saber previo → necesita conocimiento fundamental.","tipo":"mal","porque":"No hay ninguna señal de que le falte base. La pregunta no es sobre la materia: es sobre para qué le sirve."},{"t":"Trae una expectativa muy estrecha → necesita integración y compromiso.","tipo":"bien","porque":"Sí. Su relación con la materia pasa por un solo filtro: si cae en el examen de grado. La salida no es reñirlo, es conectar la materia con algo que él reconozca como suyo."},{"t":"No tiene interés → hay que exigirle más.","tipo":"mal","porque":"Exigir más a un estudiante que no ve el sentido produce cumplimiento, no aprendizaje. Y es el camino más corto a que la materia le importe todavía menos."}]},{"enunciado":"\u003cem>«Yo leí el capítulo, pero cuando llegué al final no me acordaba de lo del principio.»\u003c/em>","pregunta":"¿Qué está pasando y qué necesita?","opciones":[{"t":"No entendió el contenido → hay que volver a explicarlo.","tipo":"mal","porque":"Es el diagnóstico automático y casi siempre el equivocado. El problema no es el contenido del capítulo: es cómo lo está leyendo."},{"t":"No sabe leer textos largos de esta disciplina → necesita aprender a aprender.","tipo":"bien","porque":"Sí, y es más común de lo que parece. Nadie le enseñó a leer un texto de esta materia: cómo entrar, qué subrayar, cuándo parar a resumir. Se enseña en veinte minutos y cambia el semestre."},{"t":"Falta de esfuerzo → hay que insistir en que estudie.","tipo":"mal","porque":"Leyó el capítulo entero. El esfuerzo estuvo; lo que faltó fue el método."}]},{"enunciado":"\u003cem>«Es que yo soy malo para los números, siempre lo he sido.»\u003c/em>","pregunta":"¿Qué está pasando y qué necesita?","opciones":[{"t":"Le falta base matemática → necesita nivelación.","tipo":"abierto","porque":"Puede que también, y conviene comprobarlo. Pero fíjese en cómo lo dice: \u003cem>«siempre lo he sido»\u003c/em>. Eso no es un diagnóstico de nivel, es una identidad — y ninguna nivelación la toca."},{"t":"Trae una creencia sobre sí mismo → necesita dimensión humana y compromiso.","tipo":"bien","porque":"Sí. Lo que hay que mover primero es la creencia, y se mueve con evidencia: que se vea a sí mismo resolviendo algo que creía imposible. Después la nivelación sirve; antes, no."},{"t":"Está poniendo una excusa → no hay que darle importancia.","tipo":"mal","porque":"Esa frase es de las que deciden cuánto esfuerzo va a invertir el resto del semestre. Ignorarla es dejar la decisión tomada en su contra."}]},{"enunciado":"\u003cem>«Yo quería entrar a otra carrera, esta la cogí porque no pasé.»\u003c/em>","pregunta":"¿Qué está pasando y qué necesita?","opciones":[{"t":"Es un problema personal, no del curso.","tipo":"mal","porque":"Es un problema personal \u003cem>y\u003c/em> del curso, porque decide con qué disposición llega a cada clase. Y usted no puede cambiar su carrera, pero sí lo que su materia le muestra de ella."},{"t":"Su expectativa profesional apunta a otro lado → necesita integración hacia su interés real.","tipo":"bien","porque":"Sí, y es la salida más práctica: dejarle conectar la materia con lo que sí le interesa. Muchas veces ahí aparece el enganche que la carrera entera no le dio."},{"t":"Le falta compromiso → hay que hablarle de la importancia de la profesión.","tipo":"mal","porque":"Un discurso sobre la importancia de la profesión a alguien que no la eligió rebota. El compromiso no se produce nombrándolo."}]},{"enunciado":"\u003cem>«Nosotros venimos de trabajar, llegamos a las seis y a las nueve nos vamos.»\u003c/em>","pregunta":"¿Qué está pasando y qué necesita?","opciones":[{"t":"Es una condición de contexto → cambia lo que puede pedir fuera de clase.","tipo":"bien","porque":"Sí. Esto no es sobre lo que traen en la cabeza sino sobre las horas que tienen. Con este grupo, una meta que dependa de trabajo previo extenso no va a ocurrir — no por desinterés, por falta material de tiempo."},{"t":"Falta de compromiso con el estudio.","tipo":"mal","porque":"Alguien que llega a las seis después de trabajar todo el día está mostrando bastante compromiso. Confundir una condición material con una actitud es de los errores más caros."},{"t":"Necesita aprender a organizar su tiempo.","tipo":"abierto","porque":"Puede ayudar, y no está de más. Pero organizar mejor tres horas no las convierte en seis: el diseño del curso tiene que contar con las que hay."}]},{"enunciado":"\u003cem>«¿Y esto para qué sirve? Yo nunca he visto que nadie use esto en la práctica.»\u003c/em>","pregunta":"¿Qué está pasando y qué necesita?","opciones":[{"t":"Cree que la materia no sirve → necesita compromiso, y antes que eso, evidencia.","tipo":"bien","porque":"Sí. Y note el orden: primero la evidencia, después el compromiso. Un caso real donde la materia decida algo hace más que cualquier explicación sobre su importancia."},{"t":"Le falta conocimiento fundamental para ver la utilidad.","tipo":"abierto","porque":"A veces es cierto: hay cosas cuya utilidad solo se ve cuando ya se entienden. Pero apostar a eso es apostar a que aguante hasta entonces, y muchos no aguantan."},{"t":"Está desafiando su autoridad → hay que cortar la discusión.","tipo":"mal","porque":"Es la lectura que más caro sale. Esa pregunta, hecha en voz alta, es la que veinte más se están haciendo en silencio."}]}],"cierre":{"titulo":"El diagnóstico decide la respuesta","cuerpo":"\u003cp>Fíjese en el patrón de los seis: \u003cstrong>en casi todos, la respuesta automática era la equivocada\u003c/strong>. Falta de esfuerzo, falta de compromiso, falta de base. Casi nunca era eso.\u003c/p>\u003cp>Y note otra cosa: cuatro de los seis se resuelven con clases de aprendizaje que su programa probablemente no declara — compromiso, dimensión humana, aprender a aprender. No es casualidad.\u003c/p>\u003cp>Una encuesta de cinco preguntas el primer día le da esta información antes de que sea tarde.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Bien visto","mal":"El diagnóstico falla","abierto":"Se puede defender"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

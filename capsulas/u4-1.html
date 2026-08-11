@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>Lo que pasó en el grupo</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>Lo que pasó en el grupo</h1><p class="entrada">Cinco escenas de trabajo en equipo, contadas desde afuera. Elija qué aprendizaje hay disponible ahí y con qué pregunta se haría visible. Una de las cinco no tiene ninguno.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cem>Un equipo de cuatro se reparte el trabajo el primer día: una hace la introducción, otro los datos, otro el análisis, otra las conclusiones. Se juntan la noche anterior y pegan las partes. El trabajo saca 4,2.\u003c/em>","pregunta":"¿Qué aprendizaje hay disponible y con qué pregunta se ve?","opciones":[{"t":"Aprendieron a organizarse. Pregunta: «¿cómo se repartieron el trabajo?»","tipo":"mal","porque":"Esa pregunta les hace describir lo que ya saben que hicieron, y confirma que repartirse es la manera correcta. No aparece ningún aprendizaje nuevo."},{"t":"Que un producto bueno puede salir de un equipo que nunca trabajó junto. Pregunta: «¿en qué se nota, al leerlo, que lo escribieron cuatro personas?»","tipo":"bien","porque":"Sí, y es incómoda a propósito. Al buscar las costuras del texto descubren que la nota no midió lo que ellos creen que hicieron. Ahí empieza el aprendizaje."},{"t":"Aprendieron a cumplir plazos. Pregunta: «¿entregaron a tiempo?»","tipo":"mal","porque":"Entregaron la noche anterior. Si algo aprendieron sobre plazos, no fue lo que usted querría enseñarles."}]},{"enunciado":"\u003cem>Dos integrantes de un equipo discuten dos sesiones seguidas sobre cómo enfocar el trabajo. Al final hacen las dos versiones y las comparan. Eligen una y explican por qué.\u003c/em>","pregunta":"¿Qué aprendizaje hay disponible y con qué pregunta se ve?","opciones":[{"t":"Que un desacuerdo puede resolverse produciendo, no discutiendo. Pregunta: «¿en qué momento dejaron de discutir y empezaron a hacer?»","tipo":"bien","porque":"Sí. Hicieron algo poco común y probablemente sin darse cuenta: convirtieron una discusión en una prueba. Nombrarlo es lo que lo vuelve repetible."},{"t":"Que perdieron dos sesiones. Pregunta: «¿cómo evitarían esa demora la próxima vez?»","tipo":"mal","porque":"Esa lectura enseña justo lo contrario de lo que pasó: que discrepar es una pérdida de tiempo. En este equipo, la discusión produjo dos versiones y una decisión razonada."},{"t":"Que uno se impuso sobre el otro. Pregunta: «¿quién cedió?»","tipo":"mal","porque":"No hay señal de imposición: eligieron después de comparar. Y la pregunta empuja a leerlo como una pelea con ganador."}]},{"enunciado":"\u003cem>Una estudiante que siempre trabaja sola queda en un equipo. Termina haciendo casi todo, sin quejarse. El trabajo queda bien. En la evaluación entre pares, sus compañeros la califican alto.\u003c/em>","pregunta":"¿Qué aprendizaje hay disponible y con qué pregunta se ve?","opciones":[{"t":"Que es responsable. Pregunta: «¿está conforme con su desempeño?»","tipo":"mal","porque":"Va a decir que sí. Y usted habrá confirmado el patrón que la tiene haciendo el trabajo de cuatro personas."},{"t":"Que no sabe delegar, y que asumirlo todo le sale caro. Pregunta: «¿qué parte del trabajo pudo haber soltado, y qué le impidió hacerlo?»","tipo":"bien","porque":"Sí. La segunda mitad de la pregunta es la importante: \u003cem>qué le impidió\u003c/em>. Ahí suele aparecer desconfianza, perfeccionismo o miedo a la nota — y eso es aprender sobre uno mismo."},{"t":"Que sus compañeros se aprovecharon. Pregunta: «¿quiénes no trabajaron?»","tipo":"mal","porque":"Puede ser verdad, pero esa pregunta pone el aprendizaje afuera. Lo que ella puede aprender está en su propia conducta, que es lo único que controla."}]},{"enunciado":"\u003cem>Un equipo trabaja bien, entrega a tiempo, se reparte con criterio y todos participan. No hubo ningún conflicto ni ninguna dificultad destacable.\u003c/em>","pregunta":"¿Qué aprendizaje hay disponible y con qué pregunta se ve?","opciones":[{"t":"Ninguno en particular: no todo trabajo en grupo enseña algo sobre uno mismo o sobre los otros.","tipo":"abierto","porque":"Es una respuesta defendible y honesta. Cuando todo sale bien y nadie tuvo que negociar nada, la dimensión humana puede simplemente no haberse activado. Forzar una reflexión aquí produce texto de relleno."},{"t":"Que saben trabajar en equipo. Pregunta: «¿qué hicieron bien?»","tipo":"mal","porque":"Van a listar lo evidente. Confirmar que algo salió bien no es aprendizaje: es una felicitación."},{"t":"Aún así hay algo: qué hizo que funcionara. Pregunta: «¿qué decisión de la primera semana explica que no tuvieran problemas?»","tipo":"bien","porque":"También válido, y probablemente mejor que no preguntar nada. Un equipo que funciona sin fricción suele haber decidido algo temprano —repartir con criterio, fijar fechas propias— y casi nunca lo tiene consciente."}],"nota":"Este es el caso sin respuesta única. Las dos primeras opciones se pueden sostener, y la decisión depende de cuánto tiempo tenga usted."},{"enunciado":"\u003cem>En un equipo de cinco, uno no aparece en tres semanas. Los otros cuatro terminan el trabajo y en la entrega escriben una nota diciendo que él no participó.\u003c/em>","pregunta":"¿Qué aprendizaje hay disponible y con qué pregunta se ve?","opciones":[{"t":"Que hay que reportar a quien no trabaja. Pregunta: «¿por qué esperaron hasta la entrega?»","tipo":"abierto","porque":"La pregunta es buena y apunta a algo real: esperaron tres semanas. Pero enmarcarlo como «reportar» convierte el aprendizaje en un procedimiento administrativo."},{"t":"Qué hicieron —y qué no hicieron— ante alguien que se desconecta. Pregunta: «¿qué intentaron antes de darlo por perdido, y en qué momento decidieron que ya no contaban con él?»","tipo":"bien","porque":"Sí. Esa es una situación que van a repetir en cualquier trabajo, y la mayoría de los equipos la resuelven callando hasta el final. Ponerle palabras a qué se intentó y cuándo se rindieron es aprendizaje de dimensión humana en estado puro."},{"t":"Que el quinto es irresponsable. Pregunta: «¿qué le pasó al que no vino?»","tipo":"mal","porque":"Puede que haya una razón seria detrás, y averiguarla es su trabajo como docente. Pero como pregunta de cierre para el equipo, saca el foco de lo único que ellos pueden aprender: qué hicieron ellos."}]}],"cierre":{"titulo":"La pregunta hace el aprendizaje","cuerpo":"\u003cp>En las cinco escenas pasó lo mismo: \u003cstrong>la experiencia estaba ahí y no enseñaba nada por sí sola\u003c/strong>. Lo que cambia todo es qué se pregunta después — y varias de las preguntas equivocadas son las que más se hacen.\u003c/p>\u003cp>Fíjese en el patrón de las que funcionan: son concretas, apuntan a un momento específico, y ninguna se puede responder con una frase amable. «¿Qué le impidió soltarlo?» «¿En qué momento decidieron que ya no contaban con él?»\u003c/p>\u003cp>Media página con tres preguntas así, después de un trabajo en equipo. Eso es todo.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Ahí está","mal":"No es eso","abierto":"Se puede defender"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

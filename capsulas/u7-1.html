@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>Encuentre el desajuste</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>Encuentre el desajuste</h1><p class="entrada">Seis filas de tabla de tres columnas, de cursos reales. Diga qué está desajustado y por dónde saldría. Dos tienen las tres celdas llenas y aun así no funcionan.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cstrong>Meta:\u003c/strong> \u003cem>sostiene una discusión técnica con quien llegó a la conclusión contraria.\u003c/em>\u003cbr>\u003cstrong>Evaluación:\u003c/strong> \u003cem>examen escrito individual.\u003c/em>\u003cbr>\u003cstrong>Actividades:\u003c/strong> \u003cem>trabajo en parejas asignadas por posición opuesta, semanas 8 a 11.\u003c/em>","pregunta":"¿Qué está desajustado y por dónde sale?","opciones":[{"t":"La evaluación no puede mostrar la meta. Cambiar la evaluación.","tipo":"bien","porque":"Sí. Un examen individual no puede mostrar si alguien sostiene una discusión con otro. La actividad está bien y la meta también: lo que no corresponde es el instrumento. Media página tras el trabajo en parejas lo resuelve."},{"t":"La meta es demasiado ambiciosa. Bajarla.","tipo":"mal","porque":"La meta es perfectamente alcanzable — la actividad ya la está trabajando. Bajarla sería renunciar a algo que el curso ya hace."},{"t":"Falta actividad. Agregar una.","tipo":"mal","porque":"La actividad está y es adecuada: cuatro semanas de trabajo con alguien de posición opuesta."}]},{"enunciado":"\u003cstrong>Meta:\u003c/strong> \u003cem>determina qué datos faltan ante un proceso real y cómo conseguirlos.\u003c/em>\u003cbr>\u003cstrong>Evaluación:\u003c/strong> \u003cem>informe de consultoría con una muestra ciega, con rúbrica.\u003c/em>\u003cbr>\u003cstrong>Actividades:\u003c/strong> \u003cem>ejercicios del final de cada capítulo, con todos los datos dados.\u003c/em>","pregunta":"¿Qué está desajustado y por dónde sale?","opciones":[{"t":"La actividad no prepara para la evaluación. Cambiar la actividad.","tipo":"bien","porque":"Sí, y es el desajuste que más injusticia produce: se les evalúa algo que nunca practicaron. Van a llegar a la evaluación a improvisar, y les va a ir bien a los que ya sabían."},{"t":"La evaluación es demasiado exigente. Bajarla.","tipo":"mal","porque":"La evaluación corresponde exactamente a la meta. El problema no está ahí."},{"t":"La meta está mal escrita. Quitarla.","tipo":"mal","porque":"La meta es buena y la evaluación la muestra. Lo único que falta es que practiquen antes."}]},{"enunciado":"\u003cstrong>Meta:\u003c/strong> \u003cem>—\u003c/em>\u003cbr>\u003cstrong>Evaluación:\u003c/strong> \u003cem>se descuenta medio punto por cada falta de ortografía.\u003c/em>\u003cbr>\u003cstrong>Actividades:\u003c/strong> \u003cem>—\u003c/em>","pregunta":"¿Qué está desajustado y por dónde sale?","opciones":[{"t":"Se está calificando algo que nadie se propuso enseñar. O se declara como meta, o se quita del criterio.","tipo":"bien","porque":"Sí, y es más común de lo que parece: rúbricas que evalúan ortografía, presentación y puntualidad, ninguna de las cuales aparece entre las metas. Las dos salidas son legítimas — lo que no lo es es dejarlo así."},{"t":"Falta la meta. Agregarla.","tipo":"abierto","porque":"Es una de las dos salidas válidas: si a usted le importa que escriban bien, declárelo como meta y enséñelo. Lo que no se puede es calificarlo sin haberlo propuesto nunca."},{"t":"No hay problema: la ortografía siempre cuenta.","tipo":"mal","porque":"Puede contar, pero entonces es una meta del curso y el estudiante tiene derecho a saberlo desde el principio y a que se le enseñe."}]},{"enunciado":"\u003cstrong>Meta:\u003c/strong> \u003cem>diseña su plan de formación continua para los próximos cinco años.\u003c/em>\u003cbr>\u003cstrong>Evaluación:\u003c/strong> \u003cem>entrega del plan, con rúbrica de cuatro criterios.\u003c/em>\u003cbr>\u003cstrong>Actividades:\u003c/strong> \u003cem>una sesión sobre fuentes de actualización profesional.\u003c/em>\u003cbr>\u003cem>El grupo es de primer semestre y la mayoría no ha leído un texto académico completo.\u003c/em>","pregunta":"¿Qué está desajustado y por dónde sale?","opciones":[{"t":"La meta está demasiado lejos del punto de partida. Bajarla.","tipo":"bien","porque":"Sí. Las tres celdas están llenas y son coherentes entre sí — pero no con el grupo. Van a entregar planes copiados de internet y usted va a calificar formatos llenos. El escalón siguiente era leer un texto sin abandonarlo."},{"t":"Falta actividad. Agregar más sesiones.","tipo":"abierto","porque":"Se puede sostener, pero haría falta medio semestre de actividades para cerrar cinco escalones. Es más honesto bajar la meta que apilar sesiones."},{"t":"La evaluación no corresponde. Cambiarla.","tipo":"mal","porque":"La evaluación corresponde perfectamente a la meta. El problema es la meta frente a este grupo."}],"nota":"Primera de las dos filas con las tres celdas llenas. El desajuste no está entre las columnas: está con el módulo 2."},{"enunciado":"\u003cstrong>Meta:\u003c/strong> \u003cem>—\u003c/em>\u003cbr>\u003cstrong>Evaluación:\u003c/strong> \u003cem>—\u003c/em>\u003cbr>\u003cstrong>Actividades:\u003c/strong> \u003cem>salida de campo de un día completo, en la semana 6.\u003c/em>","pregunta":"¿Qué está desajustado y por dónde sale?","opciones":[{"t":"Es tiempo que no lleva a ninguna parte. O se le pone meta y evidencia, o se quita.","tipo":"bien","porque":"Sí. Un día completo es mucho tiempo para una actividad que no responde a ninguna meta declarada. Casi siempre la salida sí tiene un propósito en la cabeza del docente — y entonces basta con escribirlo y decidir qué se evalúa de ella."},{"t":"No hay problema: las salidas de campo siempre enseñan algo.","tipo":"mal","porque":"Enseñan algo, sí, pero sin la pregunta de cierre ese algo queda en lo que cada uno pudo sacar por su cuenta. Es la unidad 6.3 otra vez."},{"t":"Falta evaluación. Calificar la salida.","tipo":"abierto","porque":"Se puede, pero primero hay que saber para qué es. Calificar una actividad sin meta es agregar un número a algo que sigue sin propósito."}]},{"enunciado":"\u003cstrong>Meta:\u003c/strong> \u003cem>valora la importancia de la equidad en el acceso a la salud.\u003c/em>\u003cbr>\u003cstrong>Evaluación:\u003c/strong> \u003cem>ensayo argumentando por qué la equidad es importante.\u003c/em>\u003cbr>\u003cstrong>Actividades:\u003c/strong> \u003cem>lecturas y discusión sobre desigualdad en salud.\u003c/em>","pregunta":"¿Qué está desajustado y por dónde sale?","opciones":[{"t":"Las tres coinciden, pero la evaluación califica la conclusión. Cambiar la evaluación.","tipo":"bien","porque":"Sí, y es la fila más difícil de ver: las tres columnas hablan de lo mismo y la tabla se ve perfecta. El problema es que la evaluación pide adherir a una postura. Reescrita: «identifique qué consecuencia de la inequidad le parece más grave y sostenga por qué esa y no otra»."},{"t":"No hay desajuste: las tres columnas coinciden.","tipo":"mal","porque":"Coinciden en el tema, que es lo que engaña. Pero un estudiante que piense distinto no puede sacar la nota máxima con esa consigna — y esa es la prueba del módulo 4."},{"t":"Falta actividad. Agregar una.","tipo":"mal","porque":"La actividad está y es pertinente. Lo que hay que reescribir es la consigna de evaluación."}],"nota":"Segunda fila completa que no funciona, y la más difícil: se ve bien hasta que se aplica la prueba de la conclusión contraria."}],"cierre":{"titulo":"Las filas completas también fallan","cuerpo":"\u003cp>Cuatro de las seis se detectan mirando la tabla: falta una celda, o las que hay no se corresponden.\u003c/p>\u003cp>Las otras dos son las que importan. \u003cstrong>Tenían las tres celdas llenas y coherentes entre sí\u003c/strong>, y aun así no funcionaban — una porque la meta estaba a cinco escalones del grupo, otra porque la evaluación calificaba la conclusión.\u003c/p>\u003cp>Por eso la tabla de tres columnas se revisa dos veces: primero contra sí misma, y después contra su ficha de condiciones y la prueba de la conclusión contraria.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Ese es el desajuste","mal":"No es eso","abierto":"También se sostiene"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

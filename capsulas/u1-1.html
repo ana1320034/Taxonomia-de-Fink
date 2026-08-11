@@ -1,0 +1,147 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>¿Y cómo lo sabría?</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>¿Y cómo lo sabría?</h1><p class="entrada">Cinco resultados de aprendizaje reales, del tipo que hay en cualquier programa. Para cada uno, elija la evidencia que de verdad mostraría que ocurrió.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"El programa declara: \u003cem>«analizar críticamente los determinantes sociales que inciden en la salud de una población»\u003c/em>.","pregunta":"¿Qué tendría que ver usted para creer que ocurrió?","opciones":[{"t":"Un examen donde el estudiante enumera y define los determinantes sociales.","tipo":"mal","porque":"Eso muestra que los recuerda. Analizar críticamente es otra cosa: exige un caso concreto y un juicio sostenido. Este examen aprobaría igual a alguien que no sabe analizar nada."},{"t":"Un informe de dos páginas donde explica por qué dos barrios con los mismos servicios tienen resultados distintos, con los datos de su municipio.","tipo":"bien","porque":"Aquí el estudiante tiene que elegir qué factores importan y sostener por qué. No se puede resolver recordando la lista: hay que usarla sobre algo real."},{"t":"Una presentación donde expone el marco teórico de los determinantes sociales.","tipo":"mal","porque":"Exponer un marco es mostrar que lo entendió, que es conocimiento fundamental. Valioso, pero no es lo que el resultado prometía."}]},{"enunciado":"El programa declara: \u003cem>«aplicar técnicas de análisis instrumental para determinar la calidad de una muestra»\u003c/em>.","pregunta":"¿Cuál de estas evidencias lo muestra?","opciones":[{"t":"Una práctica de laboratorio donde sigue el protocolo paso a paso y reporta el resultado.","tipo":"mal","porque":"Seguir un protocolo dado es ejecutar, no aplicar. El estudiante no eligió nada: la técnica venía indicada en la guía."},{"t":"Un examen con preguntas sobre los fundamentos de cada técnica.","tipo":"mal","porque":"Mide si entiende cómo funcionan las técnicas. Aplicarlas es otra cosa y no se ve aquí."},{"t":"Una muestra sin etiquetar y la instrucción de determinar qué técnica conviene, hacerlo y justificar la elección.","tipo":"bien","porque":"Aquí hay aplicación de verdad, porque hay una decisión: la muestra no viene con la técnica puesta."}]},{"enunciado":"El programa declara: \u003cem>«desarrollar habilidades de trabajo colaborativo»\u003c/em>.","pregunta":"¿Qué evidencia serviría?","opciones":[{"t":"La nota del trabajo grupal que entregó el equipo.","tipo":"mal","porque":"La nota del producto dice si el trabajo quedó bien. No dice nada sobre cómo trabajaron: un equipo donde uno hizo todo puede entregar un producto excelente."},{"t":"Media página de cada integrante sobre qué papel tomó, qué hizo cuando apareció el desacuerdo y qué haría distinto.","tipo":"bien","porque":"Esto sí es evidencia de lo que pasó dentro del equipo, y además es lo que convierte la experiencia en aprendizaje. Sin esa media página, el trabajo en grupo enseña sobre todo a repartirse las partes."},{"t":"La asistencia a las sesiones de trabajo en equipo.","tipo":"mal","porque":"Mide que estuvo presente. Estar presente y colaborar no son lo mismo, y usted lo sabe por experiencia."}]},{"enunciado":"El programa declara: \u003cem>«valorar la importancia de la ética profesional en el ejercicio de la disciplina»\u003c/em>.","pregunta":"Aquí hay una trampa. ¿Qué evidencia pediría?","opciones":[{"t":"Un ensayo donde el estudiante explique por qué la ética profesional es importante.","tipo":"mal","porque":"Pregúntese qué escribiría un estudiante que quiere la nota. Escribiría exactamente lo que usted quiere leer, piense lo que piense. Está evaluando su habilidad para decir lo esperado."},{"t":"Un caso donde lo correcto y lo conveniente no coinciden, y la instrucción de decidir qué haría y sostenerlo con razones.","tipo":"bien","porque":"Aquí no hay una respuesta que complazca: hay que pensar el asunto y hacerse cargo. Y un estudiante que decida distinto de usted puede sacar la nota máxima si sostiene bien su decisión. Esa es la línea."},{"t":"Un cuestionario sobre el código deontológico de la profesión.","tipo":"mal","porque":"Mide si conoce el código. Conocerlo y que le importe son cosas distintas — y la segunda es la que el programa prometió."}],"nota":"Este caso vuelve en el módulo 4, con la herramienta para resolverlo."},{"enunciado":"El programa declara: \u003cem>«fomentar el aprendizaje autónomo y permanente»\u003c/em>.","pregunta":"¿Cuál de estas evidencias lo mostraría?","opciones":[{"t":"Las horas de trabajo independiente declaradas en el plan de la asignatura.","tipo":"mal","porque":"Eso es una previsión administrativa. Que el plan diga que hay 64 horas de trabajo autónomo no dice nada sobre si el estudiante aprendió a dirigirlo."},{"t":"Una fuente que el estudiante encontró por su cuenta, con la justificación de por qué es confiable en esta disciplina y qué agrega a lo visto en clase.","tipo":"bien","porque":"Buscar, juzgar la fuente y decir qué aporta son las tres cosas que componen aprender a aprender. Y todo eso queda por escrito, así que se puede valorar con criterios."},{"t":"Un trabajo final extenso hecho fuera del horario de clase.","tipo":"mal","porque":"Hacer un trabajo largo en casa no es lo mismo que saber dirigir el propio aprendizaje. Puede haberlo hecho siguiendo instrucciones precisas de principio a fin."}]}],"cierre":{"titulo":"Lo que quedó en evidencia","cuerpo":"\u003cp>En cuatro de los cinco casos, la evidencia que un curso normal produce \u003cstrong>no puede mostrar el resultado que el programa declara\u003c/strong>. No porque esté mal hecha: porque mide otra cosa.\u003c/p>\u003cp>Fíjese en el patrón de las respuestas que sí alcanzan. Todas piden algo parecido: una situación concreta, una decisión que el estudiante tiene que tomar, y una justificación. Ninguna se resuelve recordando.\u003c/p>\u003cp>Ahora vuelva a su propio resultado de aprendizaje y hágase la misma pregunta.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto');
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>Traducir al formato</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>Traducir al formato</h1><p class="entrada">Seis metas y un formato institucional con casillas rígidas. Decida a dónde va cada una — y cuando la traducción vacía la meta, verá las dos versiones para compararlas.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cem>«Explica por qué dos poblaciones con el mismo acceso a servicios pueden tener resultados de salud muy distintos.»\u003c/em>","pregunta":"¿A dónde va esta meta?","opciones":[{"t":"Se traduce al formato institucional sin perder nada.","tipo":"bien","porque":"Sí, y sin esfuerzo: \u003cem>explica\u003c/em> es un verbo observable de manual. Las metas de conocimiento fundamental y de aplicación pasan el formato sin perder nada."},{"t":"Va en la presentación al estudiante: en el formato no cabe.","tipo":"mal","porque":"Pregúntese si se puede escribir con verbo observable sin vaciarla, y si perder algo al traducirla justifica repetirla completa en la presentación."},{"t":"Las dos cosas: una versión traducida en el formato y la completa en la presentación.","tipo":"mal","porque":"No hace falta duplicarla: la versión traducida es idéntica a la completa."}]},{"enunciado":"\u003cem>«Identifica qué papel tiende a asumir en un equipo y qué efecto tiene ese papel en los demás.»\u003c/em>","pregunta":"¿A dónde va esta meta?","opciones":[{"t":"Se traduce al formato institucional sin perder nada.","tipo":"bien","porque":"Sí, y esta sorprende: es dimensión humana y pasa el formato tal cual, porque \u003cem>identifica\u003c/em> es observable y el objeto está bien delimitado. \u003cstrong>Las metas de dimensión humana se traducen mejor de lo que se cree\u003c/strong>, siempre que digan qué reconocer y no cómo ser."},{"t":"Va en la presentación al estudiante: en el formato no cabe.","tipo":"mal","porque":"Sí cabe. La que no cabría sería «es buen compañero de equipo», que además es un juicio moral, no una meta."},{"t":"Las dos cosas: una versión traducida en el formato y la completa en la presentación.","tipo":"mal","porque":"Pregúntese si se puede escribir con verbo observable sin vaciarla, y si perder algo al traducirla justifica repetirla completa en la presentación."}]},{"enunciado":"\u003cem>«Que la desigualdad en salud le importe lo suficiente como para seguir leyendo del tema cuando termine el curso.»\u003c/em>","pregunta":"¿A dónde va esta meta?","opciones":[{"t":"Se traduce al formato institucional sin perder nada.","tipo":"mal","porque":"Pregúntese si se puede escribir con verbo observable sin vaciarla, y si perder algo al traducirla justifica repetirla completa en la presentación."},{"t":"Va en la presentación al estudiante: en el formato no cabe.","tipo":"abierto","porque":"Se puede, pero entonces esa meta no existe para la institución. Traducirla además cuesta poco y le da una versión evaluable."},{"t":"Las dos cosas: una versión traducida en el formato y la completa en la presentación.","tipo":"bien","porque":"Sí, y es el caso típico del compromiso. En el formato entra la versión traducida —\u003cem>«formula una pregunta sobre el tema que le gustaría responder y que nadie le pidió»\u003c/em>—, que es observable y evaluable. Pero la promesa completa, la que mueve, va en la presentación al estudiante."}]},{"enunciado":"\u003cem>«Se da cuenta de que es capaz de resolver algo que creía imposible.»\u003c/em>","pregunta":"¿A dónde va esta meta?","opciones":[{"t":"Se traduce al formato institucional sin perder nada.","tipo":"mal","porque":"Pruebe a escribirla con verbo observable. Lo que salga va a ser otra meta, no esta."},{"t":"Va en la presentación al estudiante: en el formato no cabe.","tipo":"bien","porque":"Sí. Cualquier traducción la vacía: «demuestra confianza» no es observable y «resuelve problemas de tipo X» ya es otra meta. Va en la presentación al estudiante, y se diseña para que ocurra aunque no figure en ninguna casilla."},{"t":"Las dos cosas: una versión traducida en el formato y la completa en la presentación.","tipo":"mal","porque":"Pregúntese si se puede escribir con verbo observable sin vaciarla, y si perder algo al traducirla justifica repetirla completa en la presentación."}]},{"enunciado":"\u003cem>«Encuentra una fuente actualizada sobre un tema del curso, justifica por qué es confiable en esta disciplina y dice qué agrega a lo visto en clase.»\u003c/em>","pregunta":"¿A dónde va esta meta?","opciones":[{"t":"Se traduce al formato institucional sin perder nada.","tipo":"bien","porque":"Sí. Tres verbos observables encadenados y un producto claro. Aprender a aprender, bien escrito, pasa cualquier formato — el problema nunca fue el formato, fue que casi nadie la escribe."},{"t":"Va en la presentación al estudiante: en el formato no cabe.","tipo":"mal","porque":"Pregúntese si se puede escribir con verbo observable sin vaciarla, y si perder algo al traducirla justifica repetirla completa en la presentación."},{"t":"Las dos cosas: una versión traducida en el formato y la completa en la presentación.","tipo":"mal","porque":"No hace falta: la traducción no pierde nada porque ya está formulada como acciones."}]},{"enunciado":"\u003cem>«Averigua qué están viendo ahora en otra asignatura del semestre y muestra un punto donde las dos materias se contradicen o se refuerzan.»\u003c/em>","pregunta":"¿A dónde va esta meta?","opciones":[{"t":"Se traduce al formato institucional sin perder nada.","tipo":"bien","porque":"Sí. \u003cem>Averigua\u003c/em> y \u003cem>muestra\u003c/em> son observables, y el producto es concreto. La integración es la única de las seis clases de Fink con traducción cómoda — su problema es otro: que el docente cree que no puede exigir algo de otra materia."},{"t":"Va en la presentación al estudiante: en el formato no cabe.","tipo":"abierto","porque":"Cabe perfectamente. Lo que hace que no se escriba no es el formato: es la sensación de estar invadiendo terreno ajeno."},{"t":"Las dos cosas: una versión traducida en el formato y la completa en la presentación.","tipo":"mal","porque":"Pregúntese si se puede escribir con verbo observable sin vaciarla, y si perder algo al traducirla justifica repetirla completa en la presentación."}],"nota":"De las seis, cuatro pasan el formato sin perder nada. El formato estorba menos de lo que se cree."}],"cierre":{"titulo":"El formato estorba menos de lo que parece","cuerpo":"\u003cp>Cuatro de las seis pasan el formato institucional sin perder nada — incluidas una de dimensión humana y una de aprender a aprender. \u003cstrong>El obstáculo no era el formato: era que nadie las escribía.\u003c/strong>\u003c/p>\u003cp>Una necesita las dos versiones: la traducida para el formato y la completa para el estudiante. Y solo una no cabe de ninguna manera — y aun así se puede diseñar para que ocurra.\u003c/p>\u003cp>Nadie le prohíbe hablarle a sus estudiantes. El formato se llena; el curso se explica aparte.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Ahí va","mal":"No es la mejor salida","abierto":"También se sostiene"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

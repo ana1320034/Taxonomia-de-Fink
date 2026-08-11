@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>¿De dónde salió ese tiempo?</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>¿De dónde salió ese tiempo?</h1><p class="entrada">Cinco rediseños contados en dos versiones: el curso antes y el curso después. Identifique qué se soltó y qué devolvió tiempo. Uno de los cinco sale con balance negativo.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cstrong>Antes:\u003c/strong> \u003cem>18 temas, dos parciales y un final. Explicación todas las sesiones.\u003c/em>\u003cbr>\u003cstrong>Después:\u003c/strong> \u003cem>6 ideas centrales. Los estudiantes leen antes y traen tres preguntas; el tiempo de clase se usa en resolver casos. Cuatro entregas cortas en vez de dos parciales.\u003c/em>","pregunta":"¿Qué se soltó y qué devolvió tiempo?","opciones":[{"t":"Se soltó el temario largo. Devolvió tiempo el trabajo previo del estudiante.","tipo":"bien","porque":"Sí, y es el patrón más frecuente. Doce temas menos liberan sesiones enteras; y al mover la primera exposición fuera de clase, el tiempo presencial se duplica en la práctica."},{"t":"No se soltó nada: se agregaron actividades.","tipo":"mal","porque":"Se soltaron doce temas. Eso es lo que hizo posible todo lo demás — sin ese recorte, el rediseño no cabía."},{"t":"Se soltó la evaluación: cuatro entregas cortas son menos que dos parciales.","tipo":"mal","porque":"Al revés: cuatro entregas son más trabajo de lectura que dos parciales, no menos. Ese costo lo asumió el docente a cambio de poder devolver a tiempo."}]},{"enunciado":"\u003cstrong>Antes:\u003c/strong> \u003cem>Trabajo final en grupo, entregado la última semana, calificado y devuelto con la nota.\u003c/em>\u003cbr>\u003cstrong>Después:\u003c/strong> \u003cem>El mismo trabajo, movido a la semana 11, con una devolución colectiva de quince minutos y dos semanas para corregir y volver a entregar.\u003c/em>","pregunta":"¿Qué se soltó y qué devolvió tiempo?","opciones":[{"t":"Se soltaron dos semanas de contenido al final. Devolvió calidad, no tiempo.","tipo":"bien","porque":"Sí, y es honesto reconocerlo: este cambio \u003cstrong>no se paga en tiempo\u003c/strong>, se paga en dos semanas de temario. Lo que devuelve es que el trabajo final por fin sirva para aprender algo en vez de solo para calificar."},{"t":"No se soltó nada: solo se movió una fecha.","tipo":"mal","porque":"Mover el trabajo a la semana 11 y dejar dos de mejora significa que el contenido de esas dos semanas ya no está. Alguien tuvo que decidir cuál."},{"t":"Se soltó la calificación individual.","tipo":"mal","porque":"Nada en el caso dice eso. La devolución colectiva no reemplaza la calificación: la antecede."}]},{"enunciado":"\u003cstrong>Antes:\u003c/strong> \u003cem>Curso de 120 estudiantes con clase magistral y examen de opción múltiple.\u003c/em>\u003cbr>\u003cstrong>Después:\u003c/strong> \u003cem>Lo mismo, más un proyecto individual de ocho semanas con acompañamiento y retroalimentación escrita en tres puntos de control.\u003c/em>","pregunta":"¿Qué se soltó y qué devolvió tiempo?","opciones":[{"t":"No se soltó nada, y el balance es negativo: esto no se sostiene.","tipo":"bien","porque":"Correcto, y era el caso trampa. Ciento veinte proyectos con acompañamiento y tres devoluciones escritas cada uno son unas 360 lecturas. El rediseño se cae en la semana cuatro, y lo que queda es un docente agotado convencido de que el modelo no funciona."},{"t":"Se soltó la clase magistral. Devolvió tiempo el trabajo autónomo.","tipo":"mal","porque":"Lea otra vez: la clase magistral y el examen \u003cem>siguen ahí\u003c/em>. Solo se agregó."},{"t":"Devolvió tiempo el compromiso: los estudiantes estudian más por fuera.","tipo":"mal","porque":"Aunque eso ocurriera, no le devuelve horas al docente — y las horas que faltan son las suyas. La sinergia funciona; no hace milagros con la aritmética."}],"nota":"Este es el caso con balance negativo. No todo rediseño se paga solo, y reconocerlo a tiempo evita el fracaso."},{"enunciado":"\u003cstrong>Antes:\u003c/strong> \u003cem>Los estudiantes no participan y hay que empujar cada discusión.\u003c/em>\u003cbr>\u003cstrong>Después:\u003c/strong> \u003cem>El curso abre con un caso del municipio donde viven, y cada unidad empieza con una decisión que ellos tienen que tomar antes de que se explique nada.\u003c/em>","pregunta":"¿Qué se soltó y qué devolvió tiempo?","opciones":[{"t":"Se soltó el orden expositivo. Devolvió tiempo el compromiso: dejaron de empujar la discusión.","tipo":"bien","porque":"Sí. Explicar primero y discutir después parece el orden natural y es el que apaga la conversación. Al invertirlo, la explicación cae sobre una pregunta que ya se hicieron — y el tiempo que se iba en animar el debate se recupera entero."},{"t":"No se soltó nada: solo cambió el orden.","tipo":"abierto","porque":"Formalmente cierto, y por eso este es el rediseño más barato de todos: no cuesta temario. Pero sí se soltó algo — la comodidad de explicar antes, que para muchos docentes es lo más difícil de soltar."},{"t":"Se soltó contenido para meter el caso local.","tipo":"mal","porque":"El caso local no se suma al contenido: es por donde entra el contenido. No ocupa tiempo aparte."}]},{"enunciado":"\u003cstrong>Antes:\u003c/strong> \u003cem>El docente corrige 60 informes con comentarios extensos y los devuelve tres semanas después.\u003c/em>\u003cbr>\u003cstrong>Después:\u003c/strong> \u003cem>Los estudiantes se autoevalúan con la rúbrica antes de entregar; el docente responde a esa autoevaluación con una frase por criterio y devuelve en cuatro días.\u003c/em>","pregunta":"¿Qué se soltó y qué devolvió tiempo?","opciones":[{"t":"Se soltó el comentario extenso. Devolvió tiempo la autoevaluación: el docente responde en vez de construir desde cero.","tipo":"bien","porque":"Sí, y es de los pocos cambios que mejoran las dos cosas a la vez: menos horas de corrección y una devolución que llega cuando todavía sirve. Además la autoevaluación es aprender a aprender, sin costo adicional."},{"t":"Se soltó la calidad de la retroalimentación.","tipo":"abierto","porque":"Es la objeción esperable y merece respuesta: un comentario extenso que llega a las tres semanas vale menos que una frase precisa que llega a los cuatro días. La calidad de una devolución incluye cuándo llega."},{"t":"No se soltó nada: es más trabajo para el docente.","tipo":"mal","porque":"Es bastante menos. Responder a la valoración que el estudiante ya hizo es más rápido que leer sesenta informes desde cero."}]}],"cierre":{"titulo":"Cuatro de cinco se pagan solos","cuerpo":"\u003cp>Y uno no. Ese es el punto de la cápsula.\u003c/p>\u003cp>Fíjese en qué se soltó en los que sí funcionan: \u003cstrong>el temario largo, dos semanas de contenido, el orden expositivo, el comentario extenso\u003c/strong>. Y en qué devolvió tiempo: \u003cstrong>el trabajo previo, el compromiso, la autoevaluación\u003c/strong>. Eso es la sinergia, y es real.\u003c/p>\u003cp>Pero el tercer caso muestra el límite: cuando se \u003cem>agrega\u003c/em> sin soltar nada, la aritmética manda y el rediseño se cae. No es un fallo del modelo — es un fallo de haber querido tener las dos cosas.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Ese es el balance","mal":"No cuadra","abierto":"Se puede defender"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

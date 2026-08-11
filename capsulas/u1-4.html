@@ -1,0 +1,147 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>¿Cuál uso aquí?</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>¿Cuál uso aquí?</h1><p class="entrada">Ocho situaciones del trabajo docente. Elija el marco que le sirve en cada una — y en dos de ellas, ninguno le sirve.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"Está empezando a rediseñar su asignatura y quiere decidir \u003cem>qué quiere lograr\u003c/em>, incluyendo lo que nunca cupo en el programa.","pregunta":"¿Qué marco le sirve aquí?","opciones":[{"t":"Bloom","tipo":"mal","porque":"Bloom le ayudaría a calibrar el nivel de una tarea, pero no le da lenguaje para lo afectivo, lo personal ni el aprender a aprender."},{"t":"Marzano y Kendall","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"SOLO","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Fink","tipo":"bien","porque":"Sí. Es el momento de Fink: decidir de qué clases va a ser el aprendizaje, con las seis sobre la mesa."},{"t":"Ninguno de los cuatro","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."}]},{"enunciado":"Tiene delante dos trabajos de estudiantes y necesita decir \u003cem>por qué uno vale más que el otro\u003c/em>.","pregunta":"¿Qué marco le sirve aquí?","opciones":[{"t":"Bloom","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Marzano y Kendall","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"SOLO","tipo":"bien","porque":"Sí. SOLO mira exactamente eso: la estructura de lo que el estudiante produjo, y qué tan conectado está."},{"t":"Fink","tipo":"mal","porque":"Fink no gradúa complejidad. Le dice de qué clase es un aprendizaje, no qué tan buena es una respuesta."},{"t":"Ninguno de los cuatro","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."}]},{"enunciado":"Va a escribir una tarea y quiere asegurarse de que \u003cem>no se resuelva solo recordando\u003c/em>.","pregunta":"¿Qué marco le sirve aquí?","opciones":[{"t":"Bloom","tipo":"bien","porque":"Sí. Bloom es útil justo aquí: le permite ver qué operación mental está pidiendo y subir el nivel a propósito."},{"t":"Marzano y Kendall","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"SOLO","tipo":"abierto","porque":"SOLO le sirve después, cuando tenga la respuesta del estudiante en la mano. Ahora está diseñando la pregunta."},{"t":"Fink","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Ninguno de los cuatro","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."}]},{"enunciado":"Un grupo entero \u003cem>no arranca\u003c/em>: hacen lo mínimo y no se enganchan con nada.","pregunta":"¿Qué marco le sirve aquí?","opciones":[{"t":"Bloom","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Marzano y Kendall","tipo":"bien","porque":"Sí. Marzano y Kendall ponen el foco en lo que se activa antes de pensar — si la tarea le parece relevante al estudiante y si se cree capaz. Ese filtro decide si el resto ocurre."},{"t":"SOLO","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Fink","tipo":"abierto","porque":"Fink también le hablaría de compromiso, y no estaría mal. Pero para entender por qué no arrancan, el modelo que describe ese mecanismo es el de Marzano."},{"t":"Ninguno de los cuatro","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."}]},{"enunciado":"Quiere saber \u003cem>cuántos estudiantes de su curso están reprobando\u003c/em> y en qué temas.","pregunta":"¿Qué marco le sirve aquí?","opciones":[{"t":"Bloom","tipo":"mal","porque":"No. Bloom clasifica procesos mentales; no cuenta estudiantes ni identifica temas flojos."},{"t":"Marzano y Kendall","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"SOLO","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Fink","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Ninguno de los cuatro","tipo":"bien","porque":"Correcto: ninguno. Esto es un problema de datos, no de taxonomía. Ningún marco de aprendizaje le va a decir eso."}],"nota":"Uno de los dos casos donde la respuesta es que ninguno sirve. Vale la pena reconocerlos."},{"enunciado":"Está armando la \u003cem>rúbrica\u003c/em> de una tarea abierta y necesita describir los niveles.","pregunta":"¿Qué marco le sirve aquí?","opciones":[{"t":"Bloom","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Marzano y Kendall","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"SOLO","tipo":"bien","porque":"Sí. Los cinco niveles de SOLO se traducen bien a descriptores de rúbrica, porque hablan de cuánto está conectado lo que el estudiante entregó."},{"t":"Fink","tipo":"abierto","porque":"Fink le dijo qué evaluar; para describir los grados de calidad hace falta otra cosa."},{"t":"Ninguno de los cuatro","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."}]},{"enunciado":"Su institución le pide \u003cem>reducir la deserción\u003c/em> del programa.","pregunta":"¿Qué marco le sirve aquí?","opciones":[{"t":"Bloom","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Marzano y Kendall","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"SOLO","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Fink","tipo":"mal","porque":"Un curso que despierte compromiso puede ayudar en el margen, pero atribuirle la deserción a la taxonomía es pedirle al modelo algo que no puede dar."},{"t":"Ninguno de los cuatro","tipo":"bien","porque":"Correcto: ninguno. La deserción depende de dinero, trabajo, transporte, salud y vida familiar mucho más que del diseño de una asignatura. Un buen curso ayuda; no es la herramienta para ese problema."}],"nota":"El segundo caso sin marco. Saber dónde no aplica una herramienta es parte de saber usarla."},{"enunciado":"Quiere declarar que sus estudiantes \u003cem>salgan interesados en el tema\u003c/em>, y que eso figure en el programa.","pregunta":"¿Qué marco le sirve aquí?","opciones":[{"t":"Bloom","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Marzano y Kendall","tipo":"abierto","porque":"Marzano describe cómo funciona la motivación, que es valioso para entender el fenómeno. Pero no le da una categoría para declararlo como meta del curso."},{"t":"SOLO","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."},{"t":"Fink","tipo":"bien","porque":"Sí. Compromiso es una de las seis clases de Fink, y es la única de los cuatro marcos que le da lenguaje para escribirlo."},{"t":"Ninguno de los cuatro","tipo":"mal","porque":"No es el que mejor sirve aquí. Piense en qué objeto mira cada marco: la operación mental pedida, lo que activa al estudiante, la estructura de lo entregado, o la clase de aprendizaje buscada."}]}],"cierre":{"titulo":"No compiten: se usan en momentos distintos","cuerpo":"\u003cp>Repase sus respuestas y va a ver el patrón: \u003cstrong>Fink cuando decide qué quiere lograr. Bloom cuando calibra una tarea. SOLO cuando tiene el trabajo en la mano. Marzano cuando quiere entender por qué no se enganchan.\u003c/strong>\u003c/p>\u003cp>Y dos veces, ninguno. Un modelo de aprendizaje no resuelve un problema de deserción ni le cuenta a cuántos les fue mal. Saber dónde no aplica una herramienta es parte de saber usarla.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto');
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>

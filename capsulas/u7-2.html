@@ -1,0 +1,148 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>¿Qué le pasa a esta semana?</title><style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --fondo:#0b1120; --superficie:#141c2e; --superficie-alta:#1b2438;
+  --borde:#2b3650; --acento:#f2c314; --bien:#35b26b; --mal:#ef4444; --abierto:#60a5fa;
+  --texto:#e8ecf4; --tenue:#96a0b8;
+  --tipo:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--tipo);
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.rail{display:flex;gap:4px;padding:14px 20px 0;max-width:840px;margin:0 auto}
+.rail span{flex:1;height:3px;border-radius:2px;background:var(--borde);transition:background .25s}
+.rail span.hecho{background:var(--acento)}
+.rail span.actual{background:var(--texto)}
+.envoltura{max-width:840px;margin:0 auto;padding:20px 20px 56px}
+header{padding:18px 0 8px;border-bottom:1px solid var(--borde);margin-bottom:24px}
+h1{margin:0;font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:700;color:var(--acento);text-wrap:balance}
+.entrada{margin:8px 0 0;color:var(--tenue);font-size:.95rem;max-width:62ch}
+.contador{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--tenue);
+  font-variant-numeric:tabular-nums;margin-bottom:12px}
+.caso{background:var(--superficie);border:1px solid var(--borde);border-radius:12px;padding:20px 22px}
+.enunciado{margin:0;font-size:1.06rem;max-width:64ch}
+.enunciado em{color:var(--acento);font-style:normal;font-weight:600}
+.pregunta{margin:18px 0 0;font-weight:600;color:var(--texto);font-size:.98rem}
+.opciones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.opcion{display:block;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--texto);
+  background:var(--superficie-alta);border:1px solid var(--borde);border-left:4px solid var(--borde);
+  border-radius:9px;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s}
+.opcion:hover:not(:disabled){border-color:var(--acento)}
+.opcion:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.opcion:disabled{cursor:default;opacity:.55}
+.opcion.elegida{opacity:1;background:#1f2a42}
+.opcion.elegida[data-tipo=bien]{border-left-color:var(--bien)}
+.opcion.elegida[data-tipo=mal]{border-left-color:var(--mal)}
+.opcion.elegida[data-tipo=abierto]{border-left-color:var(--abierto)}
+.porque{margin:10px 0 0;padding:13px 15px;border-radius:9px;font-size:.93rem;
+  background:#101a2e;border:1px solid var(--borde);border-left:4px solid var(--tenue);max-width:66ch}
+.porque[data-tipo=bien]{border-left-color:var(--bien)}
+.porque[data-tipo=mal]{border-left-color:var(--mal)}
+.porque[data-tipo=abierto]{border-left-color:var(--abierto)}
+.marca{display:block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:5px;color:var(--tenue)}
+.porque[data-tipo=bien] .marca{color:var(--bien)}
+.porque[data-tipo=mal] .marca{color:var(--mal)}
+.porque[data-tipo=abierto] .marca{color:var(--abierto)}
+.nota{margin:14px 0 0;font-size:.86rem;color:var(--tenue);border-left:2px solid var(--borde);padding-left:12px}
+.pie{display:flex;justify-content:flex-end;margin-top:18px}
+.siguiente{font:inherit;font-size:.95rem;font-weight:600;color:#0b1120;background:var(--acento);
+  border:0;border-radius:8px;padding:11px 22px;cursor:pointer}
+.siguiente:focus-visible{outline:2px solid var(--texto);outline-offset:2px}
+.siguiente[hidden]{display:none}
+.cierre h2{margin:0 0 10px;font-size:1.3rem;color:var(--acento)}
+.cierre p{margin:0 0 12px;max-width:64ch}
+.cierre .aviso{margin-top:22px;padding:14px 16px;border-radius:9px;background:#101a2e;
+  border:1px solid var(--borde);border-left:4px solid var(--acento);font-size:.93rem}
+.reiniciar{margin-top:16px;font:inherit;font-size:.9rem;color:var(--tenue);background:none;
+  border:1px solid var(--borde);border-radius:8px;padding:9px 16px;cursor:pointer}
+.reiniciar:hover{color:var(--texto);border-color:var(--tenue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.envoltura{padding:14px 14px 44px}.caso{padding:16px}}
+</style><div class="rail" id="rail" aria-hidden="true"></div><div class="envoltura"><header><h1>¿Qué le pasa a esta semana?</h1><p class="entrada">Seis tramos de un período real. En cada uno hay algo que va a fallar. Encuéntrelo — y en uno de los seis, no hay nada que arreglar.</p></header><main id="zona"></main></div><script>window.__CAPSULA__={"casos":[{"enunciado":"\u003cstrong>Semana 4.\u003c/strong> \u003cem>Antes de clase: nada. En clase: explicación de la unidad 4. Después de clase: nada.\u003c/em>","pregunta":"¿Qué le pasa a esta semana?","opciones":[{"t":"Está vacía fuera de clase: el estudiante no tiene nada que hacer entre una sesión y la siguiente.","tipo":"bien","porque":"Sí, y es el hueco más común. Entre dos clases hay seis días en los que no pasa nada, y luego nos preguntamos por qué llegan sin recordar lo anterior. El tramo bajo de la muralla está vacío."},{"t":"La clase es demasiado larga.","tipo":"mal","porque":"Nada indica la duración. El problema no es la sesión: es lo que la rodea."},{"t":"No hay problema: no todas las semanas exigen trabajo autónomo.","tipo":"mal","porque":"Si ninguna lo exige, el curso entero ocurre en las dos horas de clase — y ahí no cabe todo lo que el rediseño se propuso."}]},{"enunciado":"\u003cstrong>Semana 9.\u003c/strong> \u003cem>Antes: leer dos capítulos y traer un resumen. En clase: exposición grupal y quiz. Después: entregar el avance del proyecto y la reflexión de la unidad.\u003c/em>","pregunta":"¿Qué le pasa a esta semana?","opciones":[{"t":"Está sobrecargada: cinco entregas en una semana.","tipo":"bien","porque":"Sí. Y lo que ocurre en la práctica es previsible: hacen lo que pesa en la nota y abandonan lo demás — que casi siempre es la reflexión, justo lo que sostiene las tres clases de aprendizaje que más costó incorporar."},{"t":"Falta la devolución del docente.","tipo":"abierto","porque":"También falta, y es un problema real. Pero con esta carga, agregar una devolución no arregla nada: primero hay que repartir."},{"t":"No hay problema: es una semana intensa y ya.","tipo":"mal","porque":"Una semana así aparece en casi todos los períodos, y siempre en el mismo sitio: cuando se juntan las fechas de varias asignaturas."}]},{"enunciado":"\u003cstrong>Semana 16, última.\u003c/strong> \u003cem>Entrega del trabajo final. Se califica y se devuelve con la nota del curso.\u003c/em>","pregunta":"¿Qué le pasa a esta semana?","opciones":[{"t":"La evaluación principal está al final del todo: la devolución no le sirve a nadie.","tipo":"bien","porque":"Sí. Es el error de ritmo más caro y el más frecuente. Muévala a las dos terceras partes del período y deje después un tramo de mejora: el mismo trabajo pasa de calificar a enseñar."},{"t":"Falta una actividad de cierre.","tipo":"mal","porque":"Un cierre estaría bien, pero el problema de fondo es que la devolución llega cuando ya no hay nada que hacer con ella."},{"t":"No hay problema: el trabajo final va al final.","tipo":"mal","porque":"Va al final por costumbre, no por diseño. Nada obliga a que la evaluación principal sea lo último que ocurre."}]},{"enunciado":"\u003cstrong>Semana 10.\u003c/strong> \u003cem>Se conforman los equipos para el proyecto que se entrega en la 14.\u003c/em>","pregunta":"¿Qué le pasa a esta semana?","opciones":[{"t":"El trabajo en equipo arranca demasiado tarde: cuatro semanas no alcanzan.","tipo":"bien","porque":"Sí. Un equipo que se forma en la semana diez se reparte las partes y las junta la noche anterior — y ahí no hay aprendizaje de dimensión humana. Los equipos necesitan arrancar temprano y cerrar con tiempo para mirar lo que pasó."},{"t":"Falta decir cómo se conforman los equipos.","tipo":"abierto","porque":"Es una decisión que importa —asignados o por afinidad cambia mucho—, pero no es lo que hace fracasar este diseño."},{"t":"No hay problema: cuatro semanas es tiempo suficiente para un proyecto.","tipo":"mal","porque":"Puede alcanzar para el producto. No alcanza para que el equipo aprenda a trabajar junto, que era la otra mitad."}]},{"enunciado":"\u003cstrong>Semanas 1 y 2.\u003c/strong> \u003cem>Presentación del programa, contexto histórico de la disciplina y marco teórico general. Clase magistral las dos semanas.\u003c/em>","pregunta":"¿Qué le pasa a este arranque?","opciones":[{"t":"Ahí el estudiante decide qué clase de curso es este, y le está diciendo que es el de siempre.","tipo":"bien","porque":"Sí, y es un error caro porque es invisible. Nadie se queja de dos semanas de introducción. Pero el estudiante ya aprendió cómo va a ser el resto, y el rediseño empieza cuesta arriba en la semana tres."},{"t":"El contexto histórico no es conocimiento fundamental.","tipo":"abierto","porque":"Probablemente cierto —lo vio en la unidad 3.1—, pero el problema del ritmo es otro: es qué le enseñan al estudiante estas dos semanas sobre el curso."},{"t":"No hay problema: hay que empezar por los fundamentos.","tipo":"mal","porque":"Es exactamente el orden que el módulo 1 desaconseja. Un curso que abre por la teoría frontal es donde más gente se cae, sobre todo en asincrónico."}]},{"enunciado":"\u003cstrong>Semana 12.\u003c/strong> \u003cem>Antes: ver la grabación de un caso y traer dos decisiones tomadas. En clase: comparar decisiones y discutir las dos más votadas. Después: media página sobre qué cambió de opinión y por qué. Devolución colectiva en la clase siguiente.\u003c/em>","pregunta":"¿Qué le pasa a esta semana?","opciones":[{"t":"Nada: está completa y equilibrada.","tipo":"bien","porque":"Correcto. Tiene las tres casillas llenas —antes, durante, después—, el tiempo presencial se usa en lo que solo se puede hacer con el docente, hay reflexión escrita y la devolución llega a la semana siguiente. Este es el ritmo que se busca."},{"t":"Falta una evaluación calificada.","tipo":"mal","porque":"No todas las semanas necesitan una nota. Esta produce evidencia y devolución, que es lo que hace falta."},{"t":"Está sobrecargada.","tipo":"mal","porque":"Compárela con la semana 9: aquí hay una preparación, una actividad en clase y media página. Eso es carga razonable."}],"nota":"Este es el tramo sin nada que arreglar. Vale la pena mirarlo dos veces: es el patrón que conviene repetir."}],"cierre":{"titulo":"El ritmo decide lo que el programa no dice","cuerpo":"\u003cp>Los cinco problemas son de ritmo, no de contenido: \u003cstrong>una semana vacía, una sobrecargada, la evaluación al final del todo, los equipos arrancando tarde y un arranque que anuncia el curso de siempre\u003c/strong>.\u003c/p>\u003cp>Ninguno se ve leyendo la lista de temas del programa. Todos se ven al dibujar el perfil del período con sus subidas y bajadas.\u003c/p>\u003cp>Y el sexto tramo —el que no tenía nada— es el molde: algo antes, algo con usted, algo después, y una devolución que llega a tiempo.\u003c/p>","aviso":"Ya terminó. \u003cstrong>Cierre esta pestaña\u003c/strong> y vuelva a la clase para seguir. La cápsula no guarda nada: puede repetirla cuando quiera."},"etiquetas":{"bien":"Eso era","mal":"No es eso","abierto":"También pesa"}};</script><script>
+const D = window.__CAPSULA__;
+const rail = document.getElementById('rail');
+const zona = document.getElementById('zona');
+let i = 0;
+
+D.casos.forEach(() => rail.appendChild(document.createElement('span')));
+
+function pintarRail() {
+  [...rail.children].forEach((s, k) => {
+    s.className = k < i ? 'hecho' : (k === i ? 'actual' : '');
+  });
+}
+
+function caso() {
+  pintarRail();
+  const c = D.casos[i];
+  zona.innerHTML = '';
+  const cont = document.createElement('article');
+  cont.className = 'caso';
+  cont.innerHTML =
+    '<p class="contador">Caso ' + (i + 1) + ' de ' + D.casos.length + '</p>' +
+    '<p class="enunciado">' + c.enunciado + '</p>' +
+    '<p class="pregunta">' + c.pregunta + '</p>';
+  const ul = document.createElement('div');
+  ul.className = 'opciones';
+  const pie = document.createElement('div');
+  pie.className = 'pie';
+  const btn = document.createElement('button');
+  btn.className = 'siguiente';
+  btn.hidden = true;
+  btn.textContent = i === D.casos.length - 1 ? 'Ver el cierre' : 'Siguiente caso';
+  btn.addEventListener('click', () => { i++; i < D.casos.length ? caso() : cierre(); });
+  pie.appendChild(btn);
+
+  c.opciones.forEach((o) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.type = 'button';
+    b.dataset.tipo = o.tipo;
+    b.textContent = o.t;
+    b.addEventListener('click', () => {
+      [...ul.querySelectorAll('.opcion')].forEach((x) => { x.disabled = true; });
+      b.classList.add('elegida');
+      const p = document.createElement('div');
+      p.className = 'porque';
+      p.dataset.tipo = o.tipo;
+      p.setAttribute('role', 'status');
+      const etiqueta = (D.etiquetas || {})[o.tipo] ||
+        (o.tipo === 'bien' ? 'Alcanza' : (o.tipo === 'abierto' ? 'Se puede defender' : 'Se queda corto'));
+      p.innerHTML = '<span class="marca">' + etiqueta + '</span>' + o.porque;
+      b.insertAdjacentElement('afterend', p);
+      if (c.nota) {
+        const n = document.createElement('p');
+        n.className = 'nota';
+        n.innerHTML = c.nota;
+        ul.appendChild(n);
+      }
+      btn.hidden = false;
+      btn.focus();
+    });
+    ul.appendChild(b);
+  });
+
+  cont.appendChild(ul);
+  cont.appendChild(pie);
+  zona.appendChild(cont);
+  zona.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function cierre() {
+  [...rail.children].forEach((s) => { s.className = 'hecho'; });
+  zona.innerHTML = '';
+  const c = document.createElement('article');
+  c.className = 'caso cierre';
+  c.innerHTML = '<h2>' + D.cierre.titulo + '</h2>' + D.cierre.cuerpo +
+    '<p class="aviso">' + D.cierre.aviso + '</p>';
+  const r = document.createElement('button');
+  r.className = 'reiniciar';
+  r.type = 'button';
+  r.textContent = 'Volver a empezar';
+  r.addEventListener('click', () => { i = 0; caso(); });
+  c.appendChild(r);
+  zona.appendChild(c);
+}
+
+caso();
+</script></body></html>
